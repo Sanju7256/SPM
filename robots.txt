@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+# Add a Sitemap: line after configuring the site's real public domain.

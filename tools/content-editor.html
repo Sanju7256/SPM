@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPM Interiors Design — Local Content Editor</title>
+<style>
+:root{--paper:#f6f2ea;--ink:#191919;--muted:#77736d;--line:#d8cbb9;--accent:#a85d42;--dark:#211f1c;--serif:Georgia,'Times New Roman',serif;--sans:Arial,sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 var(--sans)}header{background:var(--dark);color:var(--paper);padding:24px clamp(18px,5vw,72px);display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;flex-direction:column;line-height:1}.brand strong{font-size:25px;letter-spacing:.16em}.brand span{font-size:9px;letter-spacing:.27em;margin-top:6px;color:#d0c4b5}header p{font-size:10px;color:#c6c0b8;max-width:430px;margin:0}main{width:min(1180px,calc(100% - 36px));margin:36px auto 80px}.intro{display:grid;grid-template-columns:1fr auto;gap:25px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:28px}.eyebrow{font-size:9px;letter-spacing:.17em;text-transform:uppercase;font-weight:bold;color:var(--accent);margin:0 0 10px}h1,h2,h3{font-weight:400;letter-spacing:-.03em}h1{font:400 clamp(34px,5vw,57px)/1 var(--serif);margin:0 0 12px}h2{font:400 27px var(--serif);margin:0 0 8px}.intro p:not(.eyebrow){margin:0;color:var(--muted);max-width:710px;font-size:12px}.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:9px}.button{border:1px solid var(--ink);background:var(--ink);color:var(--paper);padding:12px 16px;font-size:9px;font-weight:bold;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}.button:hover{background:var(--accent);border-color:var(--accent)}.button.secondary{background:transparent;color:var(--ink)}.button.danger{border-color:#9d4436;background:transparent;color:#9d4436}.button:disabled{opacity:.45;cursor:not-allowed}.editor-grid{display:grid;grid-template-columns:260px 1fr;gap:26px;align-items:start}.panel{background:#fbf9f4;border:1px solid var(--line);padding:21px}.panel + .panel{margin-top:16px}.section-picker{display:flex;flex-direction:column;gap:5px;margin:14px 0 22px}.section-picker button,.entry-picker button{width:100%;text-align:left;border:0;background:transparent;padding:11px 10px;color:var(--ink);cursor:pointer}.section-picker button{font-size:10px;letter-spacing:.12em;text-transform:uppercase}.section-picker button.is-active,.entry-picker button.is-active{background:var(--paper-2,#eee8de);color:var(--accent)}.entry-picker{display:flex;flex-direction:column;gap:3px;max-height:470px;overflow:auto}.entry-picker button{font:400 17px var(--serif);line-height:1.2}.entry-picker button small{display:block;margin-top:4px;color:var(--muted);font:9px var(--sans);letter-spacing:.04em}.list-actions{display:flex;gap:8px;margin-top:15px}.list-actions .button{padding:10px}.form-head{display:flex;justify-content:space-between;align-items:center;gap:15px;padding-bottom:16px;margin-bottom:19px;border-bottom:1px solid var(--line)}.form-head h2{margin:0}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px 18px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.field input,.field textarea{width:100%;border:1px solid var(--line);background:white;padding:10px 11px;font:13px/1.5 var(--sans);color:var(--ink)}.field input:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:1px}.field textarea{resize:vertical;min-height:100px}.field small{font-size:9px;color:var(--muted)}.notice{padding:13px 15px;background:#eee8de;margin-top:17px;font-size:10px;color:var(--ink-soft,#4d4b46)}.notice strong{color:var(--ink)}.status{min-height:24px;margin:11px 0 0;color:#315b43;font-size:11px}.status.error{color:#a12f27}.empty{padding:40px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line)}.code-note{margin-top:24px;padding-top:15px;border-top:1px solid var(--line);font-size:9px;color:var(--muted)}@media(max-width:760px){header{align-items:flex-start;flex-direction:column}.intro{grid-template-columns:1fr}.editor-grid{grid-template-columns:1fr}.entry-picker{display:grid;grid-template-columns:1fr 1fr;max-height:300px}.field-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.form-head{align-items:flex-start;flex-direction:column}.toolbar{width:100%}.toolbar .button{flex:1}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="/"><strong>SPM</strong><span>INTERIORS DESIGN</span></a><p>LOCAL CONTENT EDITOR · Runs in your browser and exports a file. It is not a hosted admin or publishing system.</p></header>
+<main>
+<section class="intro"><div><p class="eyebrow">LOCAL PROJECT TOOL / NO ACCOUNT REQUIRED</p><h1>Update the design journal.</h1><p>Edit service descriptions, illustrative project studies and article copy using form fields. Load, review and download a new <code>site.json</code>, then rebuild the static site. Your changes stay in this browser until you export them.</p></div><div class="toolbar"><button class="button secondary" id="loadFile">Load JSON file</button><input id="fileInput" type="file" accept="application/json,.json" hidden><button class="button" id="download">Download updated site.json</button></div></section>
+<div class="editor-grid">
+<aside>
+<div class="panel"><p class="eyebrow">CONTENT SECTION</p><div class="section-picker" role="group" aria-label="Choose content type"><button type="button" class="is-active" data-section="services">Services</button><button type="button" data-section="projects">Project concepts</button><button type="button" data-section="articles">Journal articles</button></div><h2 id="listTitle">Services</h2><div class="entry-picker" id="entries"></div><div class="list-actions"><button class="button secondary" id="addEntry">+ Add</button><button class="button danger" id="removeEntry">Remove</button></div></div>
+<div class="panel"><p class="eyebrow">BEFORE YOU PUBLISH</p><p style="font-size:11px;margin:0">Only use approved project details and client-approved testimonials. The current site deliberately labels concept imagery. Contacts, statistics and lead processing are configured separately in the build environment.</p><div class="code-note">This editor does not upload images, publish changes or collect enquiries. Place approved images in <code>assets/</code> and use their filenames in the image fields.</div></div>
+</aside>
+<section class="panel"><div class="form-head"><div><p class="eyebrow" id="itemKicker">SERVICES / ENTRY</p><h2 id="itemTitle">Select an item to begin.</h2></div><button class="button secondary" id="resetItem">Discard unsaved edits</button></div><div id="fields" class="empty">Choose a content entry from the list, or load <code>content/site.json</code>.</div><p class="status" id="status" role="status" aria-live="polite"></p></section>
+</div>
+<div class="notice"><strong>Static-site workflow:</strong> After exporting the updated JSON, replace <code>content/site.json</code> in the source folder and run <code>python3 prepare_deploy.py</code>. Review the preview before deploying from the owner's Vercel account.</div>
+</main>
+<script>
+(() => {
+  const labels = {services:'Services',projects:'Project concepts',articles:'Journal articles'};
+  const sectionButtons = [...document.querySelectorAll('[data-section]')];
+  const entriesNode = document.querySelector('#entries');
+  const fieldsNode = document.querySelector('#fields');
+  const statusNode = document.querySelector('#status');
+  const fileInput = document.querySelector('#fileInput');
+  let data = null, selectedSection = 'services', selectedIndex = -1, snapshot = null;
+  const setStatus = (message, error=false) => { statusNode.textContent = message; statusNode.classList.toggle('error', error); };
+  const clone = value => JSON.parse(JSON.stringify(value));
+  const currentList = () => data?.[selectedSection] || [];
+  const itemName = item => item.title || item.name || item.slug || '(untitled)';
+  const readLocalFile = file => new Promise((resolve,reject) => {
+    const reader = new FileReader(); reader.onload = () => { try { resolve(JSON.parse(String(reader.result))); } catch (e) { reject(e); } }; reader.onerror = reject; reader.readAsText(file);
+  });
+  async function loadDefault(){
+    try { const response = await fetch('/content/site.json'); if (!response.ok) throw new Error('Serve this folder on localhost, or choose the JSON file manually.'); data = await response.json(); snapshot = clone(data); setStatus('Loaded content/site.json. Select an entry to edit.'); renderList(); }
+    catch (error) { setStatus('Choose “Load JSON file” and select content/site.json. ' + error.message, true); }
+  }
+  function renderList(){
+    entriesNode.innerHTML = '';
+    if (!data) { entriesNode.innerHTML = '<div class="empty">Load the content JSON first.</div>'; return; }
+    const items = currentList();
+    items.forEach((item,index) => {
+      const button=document.createElement('button'); button.type='button'; button.className=index===selectedIndex?'is-active':'';
+      const title=document.createTextNode(itemName(item)); button.append(title);
+      const small=document.createElement('small'); small.textContent=item.slug || selectedSection; button.append(small);
+      button.addEventListener('click',()=>selectItem(index)); entriesNode.append(button);
+    });
+    document.querySelector('#listTitle').textContent=labels[selectedSection];
+    if (selectedIndex>=items.length) selectedIndex=items.length-1;
+    if (selectedIndex>=0) renderFields(); else {fieldsNode.className='empty';fieldsNode.textContent='Choose an entry from the list.';document.querySelector('#itemTitle').textContent='Select an item to begin.';}
+  }
+  function selectItem(index){ commitFields(); selectedIndex=index; snapshot=clone(currentList()[index]); renderList(); }
+  function createField(key,value){
+    const wrapper=document.createElement('div'); wrapper.className='field';
+    const label=document.createElement('label'); label.textContent=key.replaceAll('_',' '); wrapper.append(label);
+    const multiline=typeof value==='string' && (value.length>115 || ['intro','description','excerpt','alt'].includes(key));
+    let input;
+    if (Array.isArray(value)){
+      input=document.createElement('textarea');
+      input.dataset.kind=Array.isArray(value[0])?'pairs':(value[0]&&typeof value[0]==='object'?'json':'lines');
+      input.value=Array.isArray(value[0])?value.map(pair=>pair.join(' | ')).join('\n'):(input.dataset.kind==='json'?JSON.stringify(value,null,2):value.join('\n'));
+      wrapper.classList.add('full');
+      const hint=document.createElement('small'); hint.textContent=input.dataset.kind==='pairs'?'One question/answer or heading/body per line, separated by |':(input.dataset.kind==='json'?'Structured items are editable as JSON; preserve each object and required field.':'One item per line'); wrapper.append(input,hint);
+    } else if (multiline){input=document.createElement('textarea');input.value=value||'';wrapper.classList.add('full');wrapper.append(input);}
+    else {input=document.createElement('input');input.type='text';input.value=value??'';wrapper.append(input);}
+    input.dataset.key=key;
+    return wrapper;
+  }
+  function renderFields(){
+    const item=currentList()[selectedIndex]; if (!item) return;
+    document.querySelector('#itemTitle').textContent=itemName(item);
+    document.querySelector('#itemKicker').textContent=labels[selectedSection].toUpperCase()+' / ENTRY '+String(selectedIndex+1).padStart(2,'0');
+    fieldsNode.className='field-grid'; fieldsNode.innerHTML='';
+    for(const [key,value] of Object.entries(item)) fieldsNode.append(createField(key,value));
+  }
+  function commitFields(){
+    if (!data || selectedIndex<0 || !currentList()[selectedIndex] || fieldsNode.classList.contains('empty')) return;
+    const item=currentList()[selectedIndex];
+    fieldsNode.querySelectorAll('[data-key]').forEach(input=>{
+      const key=input.dataset.key;
+      if(input.dataset.kind==='lines') item[key]=input.value.split('\n').map(x=>x.trim()).filter(Boolean);
+      else if(input.dataset.kind==='pairs') item[key]=input.value.split('\n').map(line=>line.split('|').map(x=>x.trim())).filter(parts=>parts.length>=2&&parts[0]&&parts[1]).map(parts=>[parts[0],parts.slice(1).join(' | ')]);
+      else if(input.dataset.kind==='json') { try { const parsed=JSON.parse(input.value); if(!Array.isArray(parsed)||parsed.some(x=>!x||typeof x!=='object'||Array.isArray(x))) throw new Error('Expected an array of objects.'); item[key]=parsed; } catch(error) { setStatus('Invalid structured JSON in '+key+': '+error.message+' Existing saved values are preserved.',true); } }
+      else item[key]=input.value.trim();
+    });
+    snapshot=clone(item);
+  }
+  function addEntry(){
+    const templates={services:{slug:'new-service',title:'New service',category:'home',short:'Short summary',intro:'Service description',image:'service-dining.jpg',alt:'Describe the illustrative image',includes:[],faqs:[]},projects:{slug:'new-concept',name:'New concept',category:'home',typology:'Illustrative concept',location:'Concept study',style:'Warm contemporary',image:'full-home-after.jpg',before_image:'full-home-before.jpg',alt:'Describe the concept image',description:'Concept description',materials:[],rooms:[]},articles:{slug:'new-article',title:'New journal article',category:'Planning',date:new Date().toISOString().slice(0,10),read_time:'5 min read',image:'materials-study.jpg',alt:'Describe the image',excerpt:'Article summary',sections:[]}};
+    data[selectedSection].push(templates[selectedSection]); selectItem(data[selectedSection].length-1); setStatus('New draft added. Complete the fields, then download your JSON.');
+  }
+  function download(){
+    commitFields(); if(!data){setStatus('Load content before exporting.',true);return;}
+    const list=currentList(); const slugs=list.map(x=>x.slug);
+    if(slugs.some(x=>!x)||new Set(slugs).size!==slugs.length){setStatus('Every entry needs a unique, non-empty slug before export.',true);return;}
+    const blob=new Blob([JSON.stringify(data,null,2)+'\n'],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='site.json';a.click();URL.revokeObjectURL(url);snapshot=clone(data);setStatus('Downloaded site.json. Replace content/site.json, rebuild and review the preview.');
+  }
+  sectionButtons.forEach(button=>button.addEventListener('click',()=>{commitFields();selectedSection=button.dataset.section;selectedIndex=-1;sectionButtons.forEach(b=>b.classList.toggle('is-active',b===button));renderList();setStatus('');}));
+  document.querySelector('#addEntry').addEventListener('click',()=>{if(!data)return setStatus('Load the content JSON first.',true);commitFields();addEntry();});
+  document.querySelector('#removeEntry').addEventListener('click',()=>{if(selectedIndex<0)return setStatus('Select an entry before removing it.',true);if(!window.confirm('Remove this entry from the local draft?'))return;data[selectedSection].splice(selectedIndex,1);selectedIndex=-1;renderList();setStatus('Removed from the unsaved local draft. Download JSON to keep this change.');});
+  document.querySelector('#resetItem').addEventListener('click',()=>{if(selectedIndex<0||!snapshot)return;currentList()[selectedIndex]=clone(snapshot);renderFields();setStatus('Discarded unsaved edits for this entry.');});
+  document.querySelector('#download').addEventListener('click',download);
+  document.querySelector('#loadFile').addEventListener('click',()=>fileInput.click());
+  fileInput.addEventListener('change',async()=>{if(!fileInput.files?.[0])return;try{const parsed=await readLocalFile(fileInput.files[0]);if(!parsed.services||!parsed.projects||!parsed.articles)throw new Error('Expected services, projects and articles arrays.');data=parsed;snapshot=clone(data);selectedIndex=-1;renderList();setStatus('Loaded '+fileInput.files[0].name+'. Select an entry to edit.');}catch(error){setStatus('Could not load JSON: '+error.message,true);}});
+  loadDefault();
+})();
+</script>
+</body></html>
