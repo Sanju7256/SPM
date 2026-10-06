@@ -1,10 +1,10 @@
-// Copies the production-ready images, icon and video from the shared ../assets folder into public/assets.
+// Copies the production-ready images, icon and video from the shared assets/ folder into public/assets.
 import { copyFileSync, mkdirSync, readdirSync, statSync } from 'node:fs';
 import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const source = resolve(here, '../../assets');
+const source = resolve(here, '../assets');
 const target = resolve(here, '../public/assets');
 mkdirSync(target, { recursive: true });
 let count = 0;

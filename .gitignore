@@ -1,6 +1,15 @@
+# Local settings (public values only, but keep machine-specific copies out of git)
 .env
 .env.*
 !.env.example
+
+# Dependencies and build output
+node_modules/
+dist/
+dist-server/
+public/assets/
+
+# Tooling
 .vercel/
 __pycache__/
 *.py[cod]

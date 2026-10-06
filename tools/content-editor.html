@@ -10,7 +10,7 @@
 <body>
 <header><a class="brand" href="/"><strong>SPM</strong><span>INTERIORS DESIGN</span></a><p>LOCAL CONTENT EDITOR · Runs in your browser and exports a file. It is not a hosted admin or publishing system.</p></header>
 <main>
-<section class="intro"><div><p class="eyebrow">LOCAL PROJECT TOOL / NO ACCOUNT REQUIRED</p><h1>Update the design journal.</h1><p>Edit service descriptions, illustrative project studies and article copy using form fields. Load, review and download a new <code>site.json</code>, then rebuild the static site. Your changes stay in this browser until you export them.</p></div><div class="toolbar"><button class="button secondary" id="loadFile">Load JSON file</button><input id="fileInput" type="file" accept="application/json,.json" hidden><button class="button" id="download">Download updated site.json</button></div></section>
+<section class="intro"><div><p class="eyebrow">LOCAL PROJECT TOOL / NO ACCOUNT REQUIRED</p><h1>Update the design journal.</h1><p>Edit service descriptions, illustrative project studies and article copy using form fields. Load, review and download a new <code>site.json</code>, then rebuild the site. Your changes stay in this browser until you export them.</p></div><div class="toolbar"><button class="button secondary" id="loadFile">Load JSON file</button><input id="fileInput" type="file" accept="application/json,.json" hidden><button class="button" id="download">Download updated site.json</button></div></section>
 <div class="editor-grid">
 <aside>
 <div class="panel"><p class="eyebrow">CONTENT SECTION</p><div class="section-picker" role="group" aria-label="Choose content type"><button type="button" class="is-active" data-section="services">Services</button><button type="button" data-section="projects">Project concepts</button><button type="button" data-section="articles">Journal articles</button></div><h2 id="listTitle">Services</h2><div class="entry-picker" id="entries"></div><div class="list-actions"><button class="button secondary" id="addEntry">+ Add</button><button class="button danger" id="removeEntry">Remove</button></div></div>
@@ -18,7 +18,7 @@
 </aside>
 <section class="panel"><div class="form-head"><div><p class="eyebrow" id="itemKicker">SERVICES / ENTRY</p><h2 id="itemTitle">Select an item to begin.</h2></div><button class="button secondary" id="resetItem">Discard unsaved edits</button></div><div id="fields" class="empty">Choose a content entry from the list, or load <code>content/site.json</code>.</div><p class="status" id="status" role="status" aria-live="polite"></p></section>
 </div>
-<div class="notice"><strong>Static-site workflow:</strong> After exporting the updated JSON, replace <code>content/site.json</code> in the source folder and run <code>python3 prepare_deploy.py</code>. Review the preview before deploying from the owner's Vercel account.</div>
+<div class="notice"><strong>Update workflow:</strong> After exporting the updated JSON, replace <code>content/site.json</code> in the source folder and run <code>npm run build</code>. Review the preview before deploying from the owner's Vercel account.</div>
 </main>
 <script>
 (() => {

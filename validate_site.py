@@ -11,9 +11,8 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parent
-# SITE_DIST lets the same checks run against the React build (web/dist).
+# SITE_DIST optionally points the checks at another build folder.
 DIST = Path(os.environ["SITE_DIST"]).resolve() if os.environ.get("SITE_DIST") else ROOT / "dist"
-REACT_BUILD = (DIST / "static").is_dir()
 EXPECTED_ORIGIN = "https://spminteriorsdesign.com"
 
 
@@ -105,7 +104,7 @@ def route_file(path: str) -> Path | None:
 
 def main() -> None:
     if not DIST.is_dir():
-        raise SystemExit("dist/ does not exist; run prepare_deploy.py first.")
+        raise SystemExit("dist/ does not exist; run `npm run build` first.")
     pages = sorted(DIST.rglob("*.html"))
     errors: list[str] = []
     route_pages = [p for p in pages if p.name != "404.html"]
@@ -170,9 +169,9 @@ def main() -> None:
         errors.append("sitemap.xml does not use the requested canonical origin.")
     if not robots.exists() or f"Sitemap: {EXPECTED_ORIGIN}/sitemap.xml" not in robots.read_text(encoding="utf-8"):
         errors.append("robots.txt does not point to the canonical sitemap.")
-    # The React build emits hashed bundles under static/ instead of a root styles.css/app.js.
-    bundles = () if REACT_BUILD else ("styles.css", "app.js")
-    for asset in (*bundles, "assets/mark.svg", "assets/spm-hero-bangalore.webp", "assets/interiorsvideo-poster.webp", "assets/interiorsvideo.mp4", "404.html"):
+    if not any((DIST / "static").glob("*.js")) or not any((DIST / "static").glob("*.css")):
+        errors.append("Missing hashed JavaScript/CSS bundles in static/.")
+    for asset in ("assets/mark.svg", "assets/spm-hero-bangalore.webp", "assets/interiorsvideo-poster.webp", "assets/interiorsvideo.mp4", "404.html"):
         if not (DIST / asset).exists():
             errors.append(f"Missing required production output: {asset}.")
     html_assets = set(re.findall(r"/assets/([^\"'\s<>]+\.webp)", "\n".join(p.read_text(encoding="utf-8") for p in pages)))

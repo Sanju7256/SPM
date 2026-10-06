@@ -1,5 +1,5 @@
 // Single source of truth shared with the original static build and the local content editor.
-import site from '../../content/site.json';
+import site from '../content/site.json';
 
 export interface Service {
   slug: string;
