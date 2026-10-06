@@ -23,14 +23,14 @@ The homepage also serves the supplied `assets/interiorsvideo.mp4` unchanged and 
 - Framework preset: **Other** (static output). `vercel.json` sets the build command and output.
 - Build command: **`npm run build`** (Node 18 or newer).
 - Output directory: **`dist`**.
-- Keep the custom `vercel.json` rules isolated from application code. It applies a permanent, exact-host `www.spminteriorsdesign.com` → `spminteriorsdesign.com` redirect and security/cache headers; preview hostnames are not redirected.
-- Configure `PUBLIC_SITE_URL=https://spminteriorsdesign.com` in the Vercel project's build environment before each production build.
+- Keep the custom `vercel.json` rules isolated from application code. It applies a permanent, exact-host `www.spminteriordesigns.in` → `spminteriordesigns.in` redirect and security/cache headers; preview hostnames are not redirected.
+- Configure `PUBLIC_SITE_URL=https://spminteriordesigns.in` in the Vercel project's build environment before each production build.
 
 No Vercel account connection or deployment has been made from this workspace. Connect/import the project in the owner's Vercel account, review a preview deployment, and confirm the exact release before making it public.
 
 ## Custom domain, HTTPS and DNS
 
-The requested canonical host is the apex `spminteriorsdesign.com`. Add both the apex and `www.spminteriorsdesign.com` to the Vercel project only when the owner confirms the domain is available and under their control. Set apex as the primary domain; the repository redirect then sends `www` to non-`www`.
+The requested canonical host is the apex `spminteriordesigns.in`. Add both the apex and `www.spminteriordesigns.in` to the Vercel project only when the owner confirms the domain is available and under their control. Set apex as the primary domain; the repository redirect then sends `www` to non-`www`.
 
 Vercel shows project-specific DNS records under the project's Domains settings. Use those exact values at the registrar. Do not substitute generic A/CNAME records, change nameservers, or alter existing email MX/TXT records without the owner's direction. Vercel may require TXT ownership verification if the domain is associated with another account. **No domain is purchased and no DNS is changed by this build.**
 

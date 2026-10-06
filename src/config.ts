@@ -29,7 +29,7 @@ const leadEndpoint = (() => {
   const raw = value(env.PUBLIC_LEAD_ENDPOINT);
   if (!raw) return '';
   try {
-    const url = new URL(raw, 'https://spminteriorsdesign.com');
+    const url = new URL(raw, 'https://spminteriordesigns.in');
     return url.protocol === 'https:' || (url.hostname === 'localhost' && url.protocol === 'http:') ? url.href : '';
   } catch {
     return '';
@@ -37,7 +37,7 @@ const leadEndpoint = (() => {
 })();
 
 export const config = {
-  siteUrl: (value(env.PUBLIC_SITE_URL) || 'https://spminteriorsdesign.com').replace(/\/+$/, ''),
+  siteUrl: (value(env.PUBLIC_SITE_URL) || 'https://spminteriordesigns.in').replace(/\/+$/, ''),
   raw: {
     whatsapp: value(env.PUBLIC_WHATSAPP_NUMBER),
     email,

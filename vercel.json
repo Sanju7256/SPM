@@ -7,8 +7,8 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www\\.spminteriorsdesign\\.com" }],
-      "destination": "https://spminteriorsdesign.com/:path*",
+      "has": [{ "type": "host", "value": "www\\.spminteriordesigns\\.in" }],
+      "destination": "https://spminteriordesigns.in/:path*",
       "permanent": true
     }
   ],

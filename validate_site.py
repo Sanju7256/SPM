@@ -13,7 +13,7 @@ import sys
 ROOT = Path(__file__).resolve().parent
 # SITE_DIST optionally points the checks at another build folder.
 DIST = Path(os.environ["SITE_DIST"]).resolve() if os.environ.get("SITE_DIST") else ROOT / "dist"
-EXPECTED_ORIGIN = "https://spminteriorsdesign.com"
+EXPECTED_ORIGIN = "https://spminteriordesigns.in"
 
 
 class PageAudit(HTMLParser):
