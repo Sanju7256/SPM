@@ -12,6 +12,8 @@
     menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
     mobileNav.hidden = !open;
     document.body.classList.toggle('menu-open', open);
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
     if (open) mobileNav.querySelector('a')?.focus();
   };
   menuButton?.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
@@ -25,19 +27,51 @@
     }
   });
 
+  const hasLeadForm = Boolean(document.querySelector('[data-lead-form]'));
+  let lastScrollY = window.scrollY;
   const updateScrollState = () => {
-    const scrolled = window.scrollY > 36;
+    const y = window.scrollY;
+    const scrolled = y > 36;
     const footerRect = document.querySelector('.site-footer')?.getBoundingClientRect();
     const footerInView = Boolean(footerRect && footerRect.top < window.innerHeight && footerRect.bottom > 0);
     header?.classList.toggle('is-scrolled', scrolled);
-    quickCta?.classList.toggle('is-visible', scrolled && window.innerWidth <= 820 && !footerInView);
+    const menuOpen = document.body.classList.contains('menu-open');
+    const dropdownOpen = Boolean(document.querySelector('.primary-nav .services-dropdown[open]'));
+    if (y > 320 && y > lastScrollY + 4 && !menuOpen && !dropdownOpen) header?.classList.add('is-hidden');
+    else if (y < lastScrollY - 4 || y <= 320) header?.classList.remove('is-hidden');
+    lastScrollY = y;
+    quickCta?.classList.toggle('is-visible', scrolled && !hasLeadForm && window.innerWidth <= 768 && !footerInView);
   };
   updateScrollState();
   window.addEventListener('scroll', updateScrollState, { passive: true });
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 820) setMenu(false);
+    if (window.innerWidth > 1024) setMenu(false);
     updateScrollState();
   });
+
+  const desktopDropdown = document.querySelector('.primary-nav .services-dropdown');
+  if (desktopDropdown) {
+    let closeTimer = 0;
+    const hoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)');
+    desktopDropdown.addEventListener('mouseenter', () => {
+      if (!hoverCapable.matches) return;
+      clearTimeout(closeTimer);
+      desktopDropdown.open = true;
+    });
+    desktopDropdown.addEventListener('mouseleave', () => {
+      if (!hoverCapable.matches) return;
+      closeTimer = window.setTimeout(() => { desktopDropdown.open = false; }, 180);
+    });
+    document.addEventListener('click', (event) => {
+      if (desktopDropdown.open && !desktopDropdown.contains(event.target)) desktopDropdown.open = false;
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && desktopDropdown.open) {
+        desktopDropdown.open = false;
+        desktopDropdown.querySelector('summary')?.focus();
+      }
+    });
+  }
 
   const currentPath = window.location.pathname.replace(/index\.html$/, '').replace(/\/$/, '') || '/';
   document.querySelectorAll('[data-nav-link]').forEach((link) => {
@@ -51,7 +85,11 @@
   document.querySelectorAll('[data-year]').forEach((node) => { node.textContent = String(new Date().getFullYear()); });
 
   const revealNodes = document.querySelectorAll('[data-reveal]');
-  if ('IntersectionObserver' in window && revealNodes.length && !reducedMotion) {
+  const gsapReady = Boolean(window.gsap && window.ScrollTrigger) && !reducedMotion;
+  if (!gsapReady) document.documentElement.classList.add('no-gsap');
+  if (gsapReady) {
+    // Revealed by the scroll-motion section at the end of this file.
+  } else if ('IntersectionObserver' in window && revealNodes.length && !reducedMotion) {
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -360,45 +398,136 @@
     });
   });
 
-  // The custom cursor is a desktop-only decorative enhancement.
-  const cursor = document.querySelector('[data-cursor-orb]');
-  const pointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (pointerFine && !reducedMotion) {
-    document.querySelectorAll('.service-card-image, .project-card-image').forEach((target) => {
-      const image = target.querySelector('img');
-      if (!image) return;
-      target.addEventListener('pointermove', (event) => {
-        const bounds = target.getBoundingClientRect();
-        const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-        const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-        image.style.setProperty('--follow-x', `${(x * 8).toFixed(1)}px`);
-        image.style.setProperty('--follow-y', `${(y * 8).toFixed(1)}px`);
-      }, { passive: true });
-      target.addEventListener('pointerleave', () => {
-        image.style.setProperty('--follow-x', '0px');
-        image.style.setProperty('--follow-y', '0px');
+  // Scroll motion: GSAP + ScrollTrigger (with Lenis smooth scrolling) when allowed; static, fully visible content otherwise.
+  const root = document.documentElement;
+  if (!gsapReady) {
+    root.classList.add('is-loaded', 'motion-ready');
+    return;
+  }
+  const { gsap, ScrollTrigger } = window;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.defaults({ ease: 'expo.out', duration: 1.1 });
+
+  if (window.Lenis) {
+    const lenis = new window.Lenis({ duration: 1.15, smoothWheel: true });
+    window.__lenis = lenis;
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+    document.querySelectorAll('a[href^="#"]:not(.skip-link)').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const id = link.getAttribute('href').slice(1);
+        const target = id && document.getElementById(id);
+        if (!target) return;
+        event.preventDefault();
+        lenis.scrollTo(target, { offset: -(header?.offsetHeight || 0) - 8 });
       });
     });
   }
-  if (cursor && pointerFine && !reducedMotion) {
-    let cursorX = 0;
-    let cursorY = 0;
-    let frame = 0;
-    document.addEventListener('pointermove', (event) => {
-      cursorX = event.clientX;
-      cursorY = event.clientY;
-      if (!frame) frame = requestAnimationFrame(() => {
-        cursor.style.left = `${cursorX}px`;
-        cursor.style.top = `${cursorY}px`;
-        frame = 0;
-      });
-    }, { passive: true });
-    document.querySelectorAll('[data-cursor]').forEach((target) => {
-      target.addEventListener('pointerenter', () => {
-        cursor.textContent = target.dataset.cursor || 'VIEW';
-        cursor.classList.add('is-visible');
-      });
-      target.addEventListener('pointerleave', () => cursor.classList.remove('is-visible'));
+
+  // Wrap each <br>-separated heading line in a mask so it can slide up into view.
+  const splitLines = (heading) => {
+    if (heading.querySelector('.line')) return heading.querySelectorAll('.line-inner');
+    heading.innerHTML = heading.innerHTML.split(/<br\s*\/?>/i)
+      .map((part) => `<span class="line"><span class="line-inner">${part.trim()}</span></span>`).join('');
+    return heading.querySelectorAll('.line-inner');
+  };
+
+  // Home hero entrance and scroll-out parallax.
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    const heroImage = hero.querySelector('.hero-image img');
+    gsap.timeline({ defaults: { duration: 1.4 } })
+      .fromTo(heroImage, { scale: 1.18 }, { scale: 1, duration: 2.4 }, 0)
+      .to(hero.querySelectorAll('h1 .line-inner'), { y: 0, yPercent: 0, stagger: 0.12 }, 0.2)
+      .to(hero.querySelector('.eyebrow'), { opacity: 1, duration: 1 }, 0.35)
+      .fromTo([hero.querySelector('.hero-lede'), hero.querySelector('.hero-actions'), hero.querySelector('.hero-bottomline')],
+        { opacity: 0, y: 24 }, { opacity: 1, y: 0, stagger: 0.12 }, 0.6);
+    gsap.to(heroImage.parentElement, { yPercent: 18, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to(hero.querySelector('.hero-copy'), { yPercent: -12, opacity: 0.2, ease: 'none', scrollTrigger: { trigger: hero, start: 'center center', end: 'bottom top', scrub: true } });
+  }
+
+  // Inner-page H1 lines rise in on load.
+  document.querySelectorAll('main h1').forEach((heading) => {
+    if (heading.closest('.hero')) return;
+    gsap.fromTo(splitLines(heading), { yPercent: 110 }, { yPercent: 0, stagger: 0.1, duration: 1.3, delay: 0.15 });
+  });
+
+  // Section headings: line-by-line mask reveal as they enter.
+  document.querySelectorAll('main h2').forEach((heading) => {
+    if (heading.closest('.article-body, .legal-copy, .hero')) return;
+    const lines = splitLines(heading);
+    gsap.fromTo(lines, { yPercent: 110 }, { yPercent: 0, stagger: 0.1, duration: 1.2, scrollTrigger: { trigger: heading, start: 'top 88%', once: true } });
+  });
+
+  // Generic content reveal, batched so cards in a row stagger together.
+  const showBatch = (batch) => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.1, overwrite: true });
+  ScrollTrigger.batch('[data-reveal]', { start: 'top 90%', once: true, onEnter: showBatch });
+
+  // Feature images drift slightly slower than the page.
+  document.querySelectorAll('.inner-hero-image, .service-detail-image, .project-detail-image, .process-hero-art, .journal-hero-image, .contact-visual, .consultation-image, .materials-image, .article-hero-image').forEach((frame) => {
+    const image = frame.querySelector('img');
+    if (!image) return;
+    gsap.fromTo(image, { yPercent: -6, scale: 1.14 }, { yPercent: 6, scale: 1.14, ease: 'none', scrollTrigger: { trigger: frame, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+
+  // Process timelines fill step by step while the list scrolls through.
+  document.querySelectorAll('.process-steps').forEach((list) => {
+    const steps = list.querySelectorAll('li');
+    const timeline = gsap.timeline({ scrollTrigger: { trigger: list, start: 'top 75%', end: 'bottom 55%', scrub: 0.6 } });
+    steps.forEach((step) => timeline.fromTo(step, { '--p': 0 }, { '--p': 1, ease: 'none', duration: 1 }));
+  });
+
+  // Turnkey stages and material chips cascade in.
+  gsap.utils.toArray('.turnkey-flow li, .materials-list li, .included-list li').forEach((item) => {
+    gsap.from(item, { opacity: 0, x: -24, duration: 0.9, scrollTrigger: { trigger: item, start: 'top 92%', once: true } });
+  });
+
+  // Marquee speeds up and reverses with scroll direction.
+  const marqueeTrack = document.querySelector('[data-marquee]');
+  if (marqueeTrack) {
+    marqueeTrack.style.animation = 'none';
+    const loop = gsap.to(marqueeTrack, { xPercent: -50, ease: 'none', duration: 40, repeat: -1 });
+    ScrollTrigger.create({
+      start: 0, end: 'max',
+      onUpdate: (self) => {
+        const boost = gsap.utils.clamp(-6, 6, self.getVelocity() / 300);
+        gsap.to(loop, { timeScale: self.direction * Math.max(1, Math.abs(boost)), duration: 0.3, overwrite: true });
+      },
     });
   }
+
+  // Desktop: the homepage services row scrolls horizontally while the section is pinned.
+  const media = gsap.matchMedia();
+  media.add('(min-width: 1025px) and (min-height: 700px)', () => {
+    const section = document.querySelector('.services-section');
+    const track = section?.querySelector('.services-grid');
+    if (!section || !track) return undefined;
+    section.classList.add('is-horizontal');
+    const distance = () => Math.max(0, track.scrollWidth - track.parentElement.clientWidth);
+    const tween = gsap.to(track, {
+      x: () => -distance(), ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: () => (section.offsetHeight > window.innerHeight ? 'top top' : 'center center'),
+        end: () => `+=${distance()}`,
+        pin: true, scrub: 0.8, invalidateOnRefresh: true, anticipatePin: 1,
+      },
+    });
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+      gsap.set(track, { clearProps: 'transform' });
+      section.classList.remove('is-horizontal');
+    };
+  });
+
+  // Footer wordmark rises as the page ends.
+  const wordmark = document.querySelector('.footer-wordmark span');
+  if (wordmark) {
+    gsap.fromTo(wordmark, { yPercent: 60 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.site-footer', start: 'top bottom', end: 'bottom bottom', scrub: true } });
+  }
+
+  root.classList.add('motion-ready');
+  window.addEventListener('load', () => ScrollTrigger.refresh());
 })();

@@ -6,11 +6,14 @@ from html.parser import HTMLParser
 from html import unescape
 from pathlib import Path
 from urllib.parse import urlsplit
+import os
 import re
 import sys
 
 ROOT = Path(__file__).resolve().parent
-DIST = ROOT / "dist"
+# SITE_DIST lets the same checks run against the React build (web/dist).
+DIST = Path(os.environ["SITE_DIST"]).resolve() if os.environ.get("SITE_DIST") else ROOT / "dist"
+REACT_BUILD = (DIST / "static").is_dir()
 EXPECTED_ORIGIN = "https://spminteriorsdesign.com"
 
 
@@ -167,7 +170,9 @@ def main() -> None:
         errors.append("sitemap.xml does not use the requested canonical origin.")
     if not robots.exists() or f"Sitemap: {EXPECTED_ORIGIN}/sitemap.xml" not in robots.read_text(encoding="utf-8"):
         errors.append("robots.txt does not point to the canonical sitemap.")
-    for asset in ("styles.css", "app.js", "assets/mark.svg", "assets/spm-hero-bangalore.webp", "assets/interiorsvideo-poster.webp", "assets/interiorsvideo.mp4", "404.html"):
+    # The React build emits hashed bundles under static/ instead of a root styles.css/app.js.
+    bundles = () if REACT_BUILD else ("styles.css", "app.js")
+    for asset in (*bundles, "assets/mark.svg", "assets/spm-hero-bangalore.webp", "assets/interiorsvideo-poster.webp", "assets/interiorsvideo.mp4", "404.html"):
         if not (DIST / asset).exists():
             errors.append(f"Missing required production output: {asset}.")
     html_assets = set(re.findall(r"/assets/([^\"'\s<>]+\.webp)", "\n".join(p.read_text(encoding="utf-8") for p in pages)))

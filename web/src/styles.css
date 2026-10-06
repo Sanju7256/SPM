@@ -309,7 +309,7 @@ body.menu-open .site-header::before { opacity: 0; }
 .mobile-nav-contact .icon-whatsapp { width: 1.1rem; height: 1.1rem; color: var(--whatsapp); }
 
 /* Inner pages start below the fixed header */
-body.page-inner main { padding-top: var(--header-h); }
+.page-inner main { padding-top: var(--header-h); }
 .breadcrumbs {
   display: flex; flex-wrap: wrap; align-items: center; gap: .5rem;
   padding-top: clamp(1.5rem, 3vw, 2.5rem);
@@ -473,11 +473,12 @@ body.page-inner main { padding-top: var(--header-h); }
 .service-card p { margin: 0; }
 
 /* Desktop horizontal scroll track for the homepage services (enabled by app.js) */
-.services-section { overflow: hidden; }
+.services-section { overflow-x: clip; }
+.services-section.is-horizontal { padding-block: 0; }
+.services-section.is-horizontal .services-sticky { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
 .services-section.is-horizontal .services-grid { display: flex; gap: clamp(1.25rem, 2vw, 2rem); width: max-content; will-change: transform; }
 .services-section.is-horizontal .service-card { width: clamp(17rem, 24vw, 21rem); }
 .services-section.is-horizontal .service-card-image { aspect-ratio: 3 / 4; }
-.services-section.is-horizontal { padding-block: clamp(3.5rem, 7vh, 5.5rem); }
 
 .projects-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2.5rem, 4vw, 3.5rem) clamp(1.25rem, 2.5vw, 2rem); }
 .home-project-grid .project-card:nth-child(2) { margin-top: clamp(0rem, 6vw, 5rem); }
@@ -907,7 +908,7 @@ a.social-chip:hover { background: var(--on-dark); border-color: var(--on-dark); 
     display: block; visibility: hidden; opacity: 0; transform: translateY(150%);
     transition: transform .5s var(--ease), opacity .35s, visibility .5s;
   }
-  .whatsapp-float[hidden] ~ .mobile-quick-cta { right: var(--gutter); }
+  .mobile-quick-cta.is-solo { right: var(--gutter); }
   .mobile-quick-cta.is-visible { visibility: visible; opacity: 1; transform: none; }
   .mobile-quick-cta a {
     display: flex; align-items: center; justify-content: center; gap: .5rem; height: 3.5rem; border-radius: 999px;
@@ -945,5 +946,5 @@ a.social-chip:hover { background: var(--on-dark); border-color: var(--on-dark); 
 
 @media print {
   .site-header, .mobile-nav, .whatsapp-float, .mobile-quick-cta, .marquee, .footer-wordmark { display: none !important; }
-  body.page-inner main { padding-top: 0; }
+  .page-inner main { padding-top: 0; }
 }

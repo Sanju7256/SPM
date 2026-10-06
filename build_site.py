@@ -32,9 +32,35 @@ def public_value(name: str) -> str:
     return os.environ.get(name, "").strip()
 
 
+ICON_PATHS = {
+    "arrow": '<path d="M7 17 17 7M8 7h9v9"/>',
+    "chevron": '<path d="m6 9 6 6 6-6"/>',
+    "phone": '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
+    "mail": '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
+    "pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+    "chat": '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+    "instagram": '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>',
+    "facebook": '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
+    "youtube": '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><path d="m9.75 15.02 5.75-3.27-5.75-3.27v6.54z"/>',
+}
+
+WHATSAPP_GLYPH = '<svg class="icon icon-whatsapp" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>'
+
+
+def icon(name: str) -> str:
+    return f'<svg class="icon icon-{name}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{ICON_PATHS[name]}</svg>'
+
+
+def whatsapp_url() -> str:
+    number = "".join(ch for ch in public_value("PUBLIC_WHATSAPP_NUMBER") if ch.isdigit())
+    if not 8 <= len(number) <= 15:
+        return ""
+    return f"https://wa.me/{number}?text=Hello%20SPM%20Interiors%20Design%2C%20I%20would%20like%20to%20discuss%20my%20interior%20project."
+
+
 def logo(light: bool = False) -> str:
     theme = " brand-light" if light else ""
-    return f'<a class="brand{theme}" href="/" aria-label="SPM Interiors Design home"><span class="brand-main">SPM</span><span class="brand-sub">INTERIORS DESIGN</span></a>'
+    return f'<a class="brand{theme}" href="/" aria-label="SPM Interiors Design home"><span class="brand-main">SPM</span><span class="brand-sub">Interiors Design</span></a>'
 
 
 NAV_ITEMS = [
@@ -74,7 +100,7 @@ def services_menu(mobile: bool = False) -> str:
         for group, items in SERVICE_NAV_GROUPS
     )
     expanded = " open" if mobile else ""
-    return f'<details class="services-dropdown"{expanded}><summary class="services-trigger">Services <span aria-hidden="true">⌄</span></summary><div class="nav-services-menu"><a class="nav-services-all" data-nav-link href="/services/">All services <span aria-hidden="true">↗</span></a><div class="nav-services-groups">{groups}</div></div></details>'
+    return f'<details class="services-dropdown"{expanded}><summary class="services-trigger">Services {icon("chevron")}</summary><div class="nav-services-menu"><a class="nav-services-all" data-nav-link href="/services/">All services <span aria-hidden="true">↗</span></a><div class="nav-services-groups">{groups}</div></div></details>'
 
 
 def nav_links(mobile: bool = False) -> str:
@@ -92,63 +118,73 @@ def header(home: bool = False) -> str:
 <header class="site-header{' is-over-hero' if home else ''}" data-header>
   <div class="header-inner">{logo()}
     <nav class="primary-nav" aria-label="Primary navigation">{nav_links()}</nav>
-    <a class="header-cta" href="/consultation/">Book a consultation <span aria-hidden="true">↗</span></a>
-    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+    <div class="header-actions">
+      <a class="header-cta" href="/consultation/">Book a consultation <span aria-hidden="true">↗</span></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav"><span class="menu-toggle-label">Menu</span><span class="menu-toggle-lines" aria-hidden="true"><span></span><span></span></span></button>
+    </div>
   </div>
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>{nav_links(True)}<a class="mobile-nav-cta" href="/consultation/">Book a consultation <span aria-hidden="true">↗</span></a></nav>
-</header>'''
+</header>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" data-lenis-prevent hidden><div class="mobile-nav-inner"><div class="mobile-nav-links">{nav_links(True)}</div><div class="mobile-nav-footer"><a class="mobile-nav-cta" href="/consultation/">Book a consultation <span aria-hidden="true">↗</span></a><div class="mobile-nav-contact"><a data-whatsapp-link href="#" hidden>{WHATSAPP_GLYPH}<span>WhatsApp</span></a><a data-email-link href="#" hidden></a></div></div></div></nav>'''
+
+
+def social_item(platform: str, label: str) -> str:
+    return (f'<a class="social-chip" data-social-link="{platform}" href="#" target="_blank" rel="noopener noreferrer" aria-label="SPM Interiors Design on {label}" hidden>{icon(platform)}</a>'
+            f'<span class="social-chip is-pending" data-social-pending="{platform}" title="{label} profile to be confirmed">{icon(platform)}<span class="sr-only">{label} profile to be confirmed</span></span>')
 
 
 def footer() -> str:
+    wa_url = whatsapp_url()
+    wa_attrs = f'href="{escape(wa_url, quote=True)}" target="_blank" rel="noopener noreferrer"' if wa_url else 'href="#" hidden'
     return f'''<footer class="site-footer">
-  <div class="footer-hero wrap">
-    <div class="footer-hero-message"><p class="footer-kicker">SPM INTERIORS DESIGN / BANGALORE</p><h2>Make room for<br><em>what matters.</em></h2><a class="footer-start" href="/consultation/">Book a design consultation <span aria-hidden="true">↗</span></a></div>
-    <div class="footer-brand">{logo(True)}<p>Thoughtful home interiors for Bangalore and South India.</p></div>
-  </div>
   <div class="footer-main wrap">
+    <div class="footer-brand">{logo(True)}<p>Thoughtful, functional interiors for homes and workplaces across Bangalore and South India.</p>
+      <section class="footer-social-block" aria-labelledby="footer-social-heading"><h3 id="footer-social-heading" class="sr-only">Social</h3><nav class="footer-social-list" aria-label="Social media">{social_item("instagram", "Instagram")}{social_item("facebook", "Facebook")}{social_item("youtube", "YouTube")}</nav></section>
+      <a class="button button-accent footer-start" href="/consultation/">Book a consultation <span aria-hidden="true">↗</span></a>
+    </div>
     <nav class="footer-column footer-primary-nav" aria-label="Footer navigation"><h3>Explore</h3><a href="/">Home</a><a href="/about/">About</a><a href="/services/">Services</a><a href="/projects/">Projects</a><a href="/process/">Process</a><a href="/journal/">Blog</a><a href="/contact/">Contact</a></nav>
     <nav class="footer-column footer-services-nav" aria-label="Interior design services"><h3>Services</h3><a href="/services/complete-home-interiors/">Home Interiors</a><a href="/services/modular-kitchens/">Kitchens</a><a href="/services/living-rooms/">Living Rooms</a><a href="/services/bedrooms/">Bedrooms</a><a href="/services/wardrobes-storage/">Wardrobes</a><a href="/services/custom-furniture/">Custom Furniture</a></nav>
     <section class="footer-column footer-contact-block" aria-labelledby="footer-contact-heading"><h3 id="footer-contact-heading">Contact</h3><div class="footer-contact-list">
-      <div class="footer-contact-row"><span class="footer-contact-label">Phone</span><div class="footer-phone-links" data-phone-links hidden></div><span class="footer-pending" data-phone-pending>Details to be confirmed</span></div>
-      <div class="footer-contact-row"><span class="footer-contact-label">WhatsApp</span><a data-wa-link href="#" hidden>Message the studio <span aria-hidden="true">↗</span></a><span class="footer-pending" data-whatsapp-pending>Number to be confirmed</span></div>
-      <div class="footer-contact-row"><span class="footer-contact-label">Email</span><a data-email-link href="#" hidden></a><span class="footer-pending" data-email-pending>Details to be confirmed</span></div>
-      <div class="footer-contact-row"><span class="footer-contact-label">Office</span><span data-office-address hidden></span><span class="footer-pending" data-office-pending>Office details to be confirmed</span></div>
+      <div class="footer-contact-row">{icon("phone")}<div><span class="footer-contact-label">Phone</span><div class="footer-phone-links" data-phone-links hidden></div><span class="footer-pending" data-phone-pending>Details to be confirmed</span></div></div>
+      <div class="footer-contact-row">{icon("chat")}<div><span class="footer-contact-label">WhatsApp</span><a data-wa-link href="#" hidden>Message the studio <span aria-hidden="true">↗</span></a><span class="footer-pending" data-whatsapp-pending>Number to be confirmed</span></div></div>
+      <div class="footer-contact-row">{icon("mail")}<div><span class="footer-contact-label">Email</span><a data-email-link href="#" hidden></a><span class="footer-pending" data-email-pending>Details to be confirmed</span></div></div>
+      <div class="footer-contact-row">{icon("pin")}<div><span class="footer-contact-label">Office</span><span data-office-address hidden></span><span class="footer-pending" data-office-pending>Office details to be confirmed</span></div></div>
     </div></section>
-    <section class="footer-column footer-social-block" aria-labelledby="footer-social-heading"><h3 id="footer-social-heading">Social</h3><nav class="footer-social-list" aria-label="Social media">
-      <a data-social-link="instagram" href="#" target="_blank" rel="noopener noreferrer" hidden>Instagram <span aria-hidden="true">↗</span></a><span data-social-pending="instagram">Instagram <small>Profile to be confirmed</small></span>
-      <a data-social-link="facebook" href="#" target="_blank" rel="noopener noreferrer" hidden>Facebook <span aria-hidden="true">↗</span></a><span data-social-pending="facebook">Facebook <small>Profile to be confirmed</small></span>
-      <a data-social-link="youtube" href="#" target="_blank" rel="noopener noreferrer" hidden>YouTube <span aria-hidden="true">↗</span></a><span data-social-pending="youtube">YouTube <small>Profile to be confirmed</small></span>
-    </nav><p class="footer-social-note">Only official SPM profiles are linked.</p></section>
   </div>
   <div class="footer-bottom wrap"><p class="footer-copyright">© <span data-year>2026</span> SPM Interiors Design. All Rights Reserved.</p><nav class="footer-legal" aria-label="Legal information"><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms &amp; Conditions</a></nav></div>
   <p class="footer-demo-note wrap">Concept imagery is illustrative. The trust figures are visibly marked as unverified placeholders; do not treat them as SPM results until confirmed. Testimonials and other claims require approval.</p>
+  <div class="footer-wordmark" aria-hidden="true"><span>SPM Interiors</span></div>
 </footer>
-<a class="whatsapp-float" data-whatsapp-link href="#" title="Chat with SPM Interiors" aria-label="Chat with SPM Interiors Design on WhatsApp" hidden><span aria-hidden="true">◉</span><span>WhatsApp us</span></a>
-<div class="mobile-quick-cta"><a href="/consultation/">Book a design consultation <span aria-hidden="true">↗</span></a></div>
-<div class="cursor-orb" data-cursor-orb aria-hidden="true"></div>'''
+<a class="whatsapp-float" data-whatsapp-link {wa_attrs} aria-label="Chat with SPM Interiors Design on WhatsApp"><span class="whatsapp-float-icon">{WHATSAPP_GLYPH}</span><span class="whatsapp-float-label">Chat with us</span></a>
+<div class="mobile-quick-cta"><a href="/consultation/">Book a consultation <span aria-hidden="true">↗</span></a></div>'''
 
 
 def page(title: str, description: str, content: str, active: str = "", home: bool = False,
          keywords: str = "interior designers in Bangalore, home interiors Bangalore, South Indian interior design") -> str:
-    return f'''<!doctype html>
+    html = f'''<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#F6F2EA"><meta name="description" content="{escape(description, quote=True)}">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script>(function(d){{d.classList.add('js');if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){{d.classList.add('motion');setTimeout(function(){{if(!d.classList.contains('motion-ready'))d.classList.remove('motion');}},3500);}}}})(document.documentElement);</script>
+  <meta name="theme-color" content="#F7F3EC"><meta name="description" content="{escape(description, quote=True)}">
   <meta name="keywords" content="{escape(keywords, quote=True)}"><meta property="og:type" content="website">
   <meta property="og:site_name" content="SPM Interiors Design"><meta property="og:title" content="{escape(title, quote=True)}"><meta property="og:description" content="{escape(description, quote=True)}">
   <meta name="twitter:card" content="summary_large_image"><meta name="spm-whatsapp" content="{escape(public_value('PUBLIC_WHATSAPP_NUMBER'), quote=True)}"><meta name="spm-contact-email" content="{escape(public_value('PUBLIC_CONTACT_EMAIL'), quote=True)}"><meta name="spm-contact-phone" content="{escape(public_value('PUBLIC_CONTACT_PHONE'), quote=True)}"><meta name="spm-office-address" content="{escape(public_value('PUBLIC_OFFICE_ADDRESS'), quote=True)}"><meta name="spm-instagram-url" content="{escape(public_value('PUBLIC_INSTAGRAM_URL'), quote=True)}"><meta name="spm-facebook-url" content="{escape(public_value('PUBLIC_FACEBOOK_URL'), quote=True)}"><meta name="spm-youtube-url" content="{escape(public_value('PUBLIC_YOUTUBE_URL'), quote=True)}"><meta name="spm-lead-endpoint" content="{escape(public_value('PUBLIC_LEAD_ENDPOINT'), quote=True)}">
   <title>{escape(title)}</title>
-  <link rel="icon" href="/assets/mark.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/assets/mark.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css"><!-- ORGANIZATION_SCHEMA -->
 </head>
 <body class="{'page-home' if home else 'page-inner'}" data-active="{escape(active)}">
 {header(home)}
 <main id="main">{content}</main>
 {footer()}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
 <script src="/app.js" defer></script>
 </body></html>'''
+    # Text arrows render inconsistently across platforms; swap them for one crisp inline icon.
+    return html.replace("↗", icon("arrow"))
 
 
 def eyebrow(text: str, number: str = "") -> str:
@@ -170,7 +206,7 @@ def button(text: str, href: str, kind: str = "button-dark") -> str:
 
 
 def cta_band(kicker: str, title: str, copy: str, label: str = "Book a consultation") -> str:
-    return f'''<section class="cta-band"><div class="cta-inner wrap" data-reveal>{eyebrow(kicker)}<h2>{title}</h2><p>{escape(copy)}</p>{button(label, '/consultation/', 'button-light')}<span class="cta-index" aria-hidden="true">SPM / {escape(kicker[:2].upper())}</span></div></section>'''
+    return f'''<section class="cta-band"><div class="cta-inner wrap" data-reveal>{eyebrow(kicker)}<h2>{title}</h2><p>{escape(copy)}</p><div class="cta-actions">{button(label, '/consultation/', 'button-dark')}</div></div></section>'''
 
 
 def stat_value(name: str, label: str, suffix: str = "") -> str:
@@ -218,7 +254,7 @@ def compare_slider(before: str, after: str, title: str, before_alt: str, after_a
     return f'''<div class="compare-slider" data-compare style="--split:50%" {f'id="{escape(section_id)}"' if section_id else ''}>
   <div class="compare-side compare-before"><img src="{ASSETS}{escape(before)}" alt="{escape(before_alt, quote=True)}" loading="lazy"><span class="compare-label">Before</span></div>
   <div class="compare-side compare-after"><img src="{ASSETS}{escape(after)}" alt="{escape(after_alt, quote=True)}" loading="lazy"><span class="compare-label">After</span></div>
-  <span class="compare-divider" aria-hidden="true"><span>↔</span></span><input class="compare-range" type="range" min="30" max="70" value="50" aria-label="Adjust the before and after comparison for {escape(title, quote=True)}"><span class="compare-caption">Drag to compare</span>
+  <span class="compare-divider" aria-hidden="true"><span>↔</span></span><input class="compare-range" type="range" min="0" max="100" value="50" aria-label="Adjust the before and after comparison for {escape(title, quote=True)}"><span class="compare-caption">Drag to compare</span>
 </div>'''
 
 
@@ -238,6 +274,12 @@ def process_steps(compact: bool = False) -> str:
     ) + '</ol>'
 
 
+def marquee() -> str:
+    words = ["Complete homes", "Modular kitchens", "Living rooms", "Bedrooms", "Wardrobes", "Workplaces", "Custom furniture", "Lighting & ceilings"]
+    run = "".join(f"<span>{escape(word)}</span>" for word in words)
+    return f'<div class="marquee" aria-hidden="true"><div class="marquee-track" data-marquee>{run}{run}</div></div>'
+
+
 def home() -> str:
     projects = CONTENT["projects"]
     services = CONTENT["services"]
@@ -250,20 +292,21 @@ def home() -> str:
     ]
     tabs = "".join(f'<button type="button" data-transform-select="{before.split("-")[0]}" aria-pressed="{"true" if i == 0 else "false"}">{escape(label)}</button>' for i, (label, before, after, _, _) in enumerate(transformations))
     tab_payload = " ".join(f'data-{before.split("-")[0]}-before="{escape(before)}" data-{before.split("-")[0]}-after="{escape(after)}" data-{before.split("-")[0]}-before-alt="{escape(ba, quote=True)}" data-{before.split("-")[0]}-after-alt="{escape(aa, quote=True)}"' for label, before, after, ba, aa in transformations)
-    content = f'''<section class="hero" aria-labelledby="hero-title"><div class="hero-image" aria-hidden="true"><img src="{ASSETS}spm-hero-bangalore.jpg" alt="" fetchpriority="high"><span class="hero-shade"></span></div><div class="hero-copy wrap"><span class="hero-rule" aria-hidden="true"></span>{eyebrow('SPM INTERIORS DESIGN / BANGALORE')}
-  <h1 id="hero-title"><span>We design homes</span><span>that <em>feel like you.</em></span></h1><p class="hero-lede">Thoughtful interiors for South Indian homes—planned around your routines, preferences and everyday needs.</p><div class="hero-actions">{button('Explore our work','/projects/','button-light')}{button('Book a design consultation','/consultation/','button-ghost-light')}</div><div class="hero-bottomline"><span>HOME INTERIORS · BANGALORE · SOUTH INDIA</span><a href="#discover">Scroll to discover <span aria-hidden="true">↓</span></a></div></div><div class="hero-index" aria-hidden="true">01 — 04</div></section>
+    content = f'''<section class="hero" aria-labelledby="hero-title"><div class="hero-image" aria-hidden="true"><img src="{ASSETS}spm-hero-bangalore.jpg" alt="" fetchpriority="high"><span class="hero-shade"></span></div><div class="hero-copy wrap">{eyebrow('SPM INTERIORS DESIGN / BANGALORE')}
+  <h1 id="hero-title"><span class="line"><span class="line-inner">We design homes</span></span><span class="line"><span class="line-inner">that <em>feel like you.</em></span></span></h1><p class="hero-lede">Thoughtful interiors for South Indian homes—planned around your routines, preferences and everyday needs.</p><div class="hero-actions">{button('Explore our work','/projects/','button-light')}{button('Book a design consultation','/consultation/','button-ghost-light')}</div><div class="hero-bottomline"><span>Residential &amp; commercial interiors · Bangalore · South India</span><a href="#discover"><span class="scroll-cue" aria-hidden="true"></span>Scroll to discover</a></div></div></section>
 {stats_band()}
+{marquee()}
 <section class="manifesto section-pad wrap" id="discover"><div class="manifesto-aside" data-reveal>{eyebrow('A HOME, IN YOUR OWN WORDS','01')}<span class="vertical-rule"></span><p>YOUR HOME.<br>YOUR STORY.<br>OUR DESIGN.</p></div><div class="manifesto-copy" data-reveal><h2>A home isn’t a showroom.<br>It’s a <em>story in progress.</em></h2><p>SPM Interiors Design creates thoughtful, functional interiors that reflect your personality and make everyday living feel effortless. From discovery and planning to the details that make a room feel complete, each choice begins with you.</p><a class="text-link" href="/about/">Get to know SPM <span aria-hidden="true">↗</span></a></div><div class="manifesto-note" data-reveal><span>DESIGNED<br>AROUND YOU</span><b aria-hidden="true">SPM</b></div></section>
-<section id="transformations" class="transformation-section section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('SEE THE POSSIBILITY','02')}<h2>From everyday<br>to <em>entirely yours.</em></h2></div><p>Explore illustrative room transformations. These generated visuals are design concepts, not completed client projects.</p></div><div class="transformation-layout"><div class="transformation-copy" data-reveal><span class="index-line">01 / TRANSFORMATION STUDY</span><h3 data-transform-title>Living room</h3><p>A clear starting point, a considered palette and useful details can change how a room supports daily life.</p><div class="transformation-tabs" role="group" aria-label="Choose a transformation example">{tabs}</div><p class="compare-hint">Move the divider to compare each illustrative concept.</p><a class="text-link transformation-more" href="/projects/">See more transformations <span aria-hidden="true">↗</span></a></div><div class="transformation-visual" {tab_payload} data-transform-image><div class="compare-slider" data-compare style="--split:50%"><div class="compare-side compare-before"><img data-transform-before src="{ASSETS}living-before.jpg" alt="Plain living room before design concept" loading="lazy"><span class="compare-label">Before</span></div><div class="compare-side compare-after"><img data-transform-after src="{ASSETS}living-after.jpg" alt="Warm layered living-room concept" loading="lazy"><span class="compare-label">After</span></div><span class="compare-divider" aria-hidden="true"><span>↔</span></span><input class="compare-range" type="range" min="30" max="70" value="50" aria-label="Adjust the living-room before and after comparison"><span class="compare-caption">Drag to compare</span></div></div></div></div></section>
+<section id="transformations" class="transformation-section section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('SEE THE POSSIBILITY','02')}<h2>From everyday<br>to <em>entirely yours.</em></h2></div><p>Explore illustrative room transformations. These generated visuals are design concepts, not completed client projects.</p></div><div class="transformation-layout"><div class="transformation-copy" data-reveal><span class="index-line">01 / TRANSFORMATION STUDY</span><h3 data-transform-title>Living room</h3><p>A clear starting point, a considered palette and useful details can change how a room supports daily life.</p><div class="transformation-tabs" role="group" aria-label="Choose a transformation example">{tabs}</div><p class="compare-hint">Move the divider to compare each illustrative concept.</p><a class="text-link transformation-more" href="/projects/">See more transformations <span aria-hidden="true">↗</span></a></div><div class="transformation-visual" {tab_payload} data-transform-image><div class="compare-slider" data-compare style="--split:50%"><div class="compare-side compare-before"><img data-transform-before src="{ASSETS}living-before.jpg" alt="Plain living room before design concept" loading="lazy"><span class="compare-label">Before</span></div><div class="compare-side compare-after"><img data-transform-after src="{ASSETS}living-after.jpg" alt="Warm layered living-room concept" loading="lazy"><span class="compare-label">After</span></div><span class="compare-divider" aria-hidden="true"><span>↔</span></span><input class="compare-range" type="range" min="0" max="100" value="50" aria-label="Adjust the living-room before and after comparison"><span class="compare-caption">Drag to compare</span></div></div></div></div></section>
 <section class="sample-video-section section-pad" aria-labelledby="sample-video-heading"><div class="wrap sample-video-layout"><div class="sample-video-copy" data-reveal>{eyebrow('SPACES IN MOTION / SAMPLE VIDEO','03')}<h2 id="sample-video-heading">A closer look<br><em>in motion.</em></h2><p>A sample interior walkthrough, supplied for this website. It is presented as sample media, not as a verified completed SPM project.</p><span class="sample-video-note">32-SECOND INTERIOR WALKTHROUGH · AUDIO AVAILABLE</span></div><figure class="sample-video-card" data-reveal><video id="sample-interior-video" controls playsinline preload="metadata" poster="{ASSETS}interiorsvideo-poster.jpg" aria-labelledby="sample-video-heading" aria-describedby="sample-video-caption"><source src="{ASSETS}interiorsvideo.mp4" type="video/mp4"><p>Your browser does not support embedded video. <a href="{ASSETS}interiorsvideo.mp4">Open the sample video directly</a>.</p></video><figcaption id="sample-video-caption"><span>SPM INTERIORS DESIGN / SAMPLE</span><span>Press play when you are ready</span></figcaption></figure></div></section>
-<section class="services-section section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('ROOM BY ROOM, OR ALL AT ONCE','03')}<h2>Considered from<br><em>threshold to home.</em></h2></div><a class="text-link" href="/services/">Explore every service <span aria-hidden="true">↗</span></a></div><div class="services-grid">{''.join(service_card(item, i) for i, item in enumerate(services[:6]))}</div></div></section>
-<section class="projects-section section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('A DESIGN JOURNAL IN IMAGES','04')}<h2>Ideas with <em>room to breathe.</em></h2></div><a class="text-link" href="/projects/">View concept studies <span aria-hidden="true">↗</span></a></div><div class="projects-grid home-project-grid">{''.join(project_card(item, i) for i, item in enumerate(projects[:3]))}</div><p class="concept-note">Every image and project name shown here is an illustrative design concept—not a claim of completed client work.</p></div></section>
-<section class="philosophy-section section-pad"><div class="wrap philosophy-layout"><div class="philosophy-heading" data-reveal>{eyebrow('THE SPM APPROACH','05')}<h2>Beautiful is only<br>the <em>beginning.</em></h2><p>We bring a point of view to the design—and keep the way you live at its centre.</p>{button('How we work','/process/','button-outline')}</div><div class="principle-list"><article data-reveal><span>01</span><div><h3>Listen before drawing</h3><p>Your needs and preferences set the direction.</p></div></article><article data-reveal><span>02</span><div><h3>Make the everyday work</h3><p>Storage, movement and light are part of the design from the start.</p></div></article><article data-reveal><span>03</span><div><h3>Choose materials with care</h3><p>Texture, maintenance and context matter as much as appearance.</p></div></article><article data-reveal><span>04</span><div><h3>Keep every decision clear</h3><p>A considered process helps ideas move forward with shared understanding.</p></div></article><article data-reveal><span>05</span><div><h3>Make choices understandable</h3><p>Options, assumptions and trade-offs deserve a clear conversation.</p></div></article><article data-reveal><span>06</span><div><h3>Finish with intention</h3><p>Proportion, edges and the details seen every day all matter.</p></div></article></div></div></section>
-<section class="process-preview section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('A CLEAR, COLLABORATIVE PROCESS','06')}<h2>From first thought<br>to <em>feeling at home.</em></h2></div><p>Each project has its own needs. A clear sequence makes the next decision easier to see.</p></div>{process_steps(True)}<div class="process-more"><a class="text-link" href="/process/">See the full design journey <span aria-hidden="true">↗</span></a></div></div></section>
-<section class="turnkey-section section-pad"><div class="wrap turnkey-layout"><div data-reveal>{eyebrow('FROM CONCEPT TO HANDOVER','07')}<h2>One vision.<br><em>A coordinated journey.</em></h2><p>Design, materials and next steps can be considered as one connected plan. Execution, quality checks and handover are included only when confirmed in the written project scope.</p><a class="text-link" href="/process/">Understand the process <span aria-hidden="true">↗</span></a></div><div class="turnkey-flow" data-reveal><ol><li>Concept</li><li>Design</li><li>Materials</li><li>Execution</li><li>Quality check</li><li>Handover</li></ol><p>Potential stages — final responsibilities depend on the signed agreement.</p></div></div></section>
-<section class="materials-section"><div class="materials-image" data-reveal><img src="{ASSETS}materials-study.jpg" alt="Tactile interior material samples in ivory, stone, timber and terracotta" loading="lazy"></div><div class="materials-copy" data-reveal>{eyebrow('A PALETTE WITH PURPOSE','07')}<h2>Materials that feel<br><em>like home.</em></h2><p>Natural grain, quiet stone, tactile textiles and one carefully chosen accent can give a room depth without adding visual noise.</p><ul class="materials-list"><li>Wood</li><li>Marble &amp; stone</li><li>Veneer</li><li>Laminate</li><li>Fabric</li><li>Glass &amp; metal</li><li>Lighting</li></ul><a class="text-link" href="/journal/materials-for-south-indian-homes/">Read our material notes <span aria-hidden="true">↗</span></a></div></section>
-<section class="testimonial-section section-pad"><div class="wrap testimonial-wrap"><div class="testimonial-heading" data-reveal>{eyebrow('CLIENT STORIES','08')}<h2>Good homes are<br><em>personal.</em></h2><p>Verified client words will appear here after the studio approves them.</p><div class="slider-controls"><button type="button" data-slide="prev" aria-label="Previous client story">←</button><button type="button" data-slide="next" aria-label="Next client story">→</button><span data-slide-count>01 / 03</span></div></div><div class="testimonial-stage" aria-live="polite"><article class="testimonial is-active" data-testimonial><span class="quote-mark" aria-hidden="true">“</span><blockquote>Approved client feedback will be added here when SPM supplies a verified testimonial.</blockquote><div class="reviewer"><span class="review-avatar" aria-hidden="true">SPM</span><div><strong>Client story pending</strong><span>Replace with an approved name and context</span></div></div></article><article class="testimonial" data-testimonial hidden><span class="quote-mark" aria-hidden="true">“</span><blockquote>A second verified client story can be featured here after review and permission.</blockquote><div class="reviewer"><span class="review-avatar" aria-hidden="true">SPM</span><div><strong>Client story pending</strong><span>No review, rating or identity is invented</span></div></div></article><article class="testimonial" data-testimonial hidden><span class="quote-mark" aria-hidden="true">“</span><blockquote>Use this space for real feedback shared with the client’s permission.</blockquote><div class="reviewer"><span class="review-avatar" aria-hidden="true">SPM</span><div><strong>Client story pending</strong><span>Verified testimonial placeholder</span></div></div></article></div></div></section>
-<section class="journal-section section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('NOTES ON LIVING WELL','09')}<h2>From the design<br><em>journal.</em></h2></div><a class="text-link" href="/journal/">Read every article <span aria-hidden="true">↗</span></a></div><div class="journal-grid">{''.join(article_card(item, i) for i, item in enumerate(articles))}</div></div></section>
+<section class="services-section section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('ROOM BY ROOM, OR ALL AT ONCE','04')}<h2>Considered from<br><em>threshold to home.</em></h2></div><a class="text-link" href="/services/">Explore every service <span aria-hidden="true">↗</span></a></div><div class="services-grid">{''.join(service_card(item, i) for i, item in enumerate(services[:6]))}</div></div></section>
+<section class="projects-section section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('A DESIGN JOURNAL IN IMAGES','05')}<h2>Ideas with <em>room to breathe.</em></h2></div><a class="text-link" href="/projects/">View concept studies <span aria-hidden="true">↗</span></a></div><div class="projects-grid home-project-grid">{''.join(project_card(item, i) for i, item in enumerate(projects[:3]))}</div><p class="concept-note">Every image and project name shown here is an illustrative design concept—not a claim of completed client work.</p></div></section>
+<section class="philosophy-section section-pad"><div class="wrap philosophy-layout"><div class="philosophy-heading" data-reveal>{eyebrow('THE SPM APPROACH','06')}<h2>Beautiful is only<br>the <em>beginning.</em></h2><p>We bring a point of view to the design—and keep the way you live at its centre.</p>{button('How we work','/process/','button-outline')}</div><div class="principle-list"><article data-reveal><span>01</span><div><h3>Listen before drawing</h3><p>Your needs and preferences set the direction.</p></div></article><article data-reveal><span>02</span><div><h3>Make the everyday work</h3><p>Storage, movement and light are part of the design from the start.</p></div></article><article data-reveal><span>03</span><div><h3>Choose materials with care</h3><p>Texture, maintenance and context matter as much as appearance.</p></div></article><article data-reveal><span>04</span><div><h3>Keep every decision clear</h3><p>A considered process helps ideas move forward with shared understanding.</p></div></article><article data-reveal><span>05</span><div><h3>Make choices understandable</h3><p>Options, assumptions and trade-offs deserve a clear conversation.</p></div></article><article data-reveal><span>06</span><div><h3>Finish with intention</h3><p>Proportion, edges and the details seen every day all matter.</p></div></article></div></div></section>
+<section class="process-preview section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('A CLEAR, COLLABORATIVE PROCESS','07')}<h2>From first thought<br>to <em>feeling at home.</em></h2></div><p>Each project has its own needs. A clear sequence makes the next decision easier to see.</p></div>{process_steps(True)}<div class="process-more"><a class="text-link" href="/process/">See the full design journey <span aria-hidden="true">↗</span></a></div></div></section>
+<section class="turnkey-section section-pad"><div class="wrap turnkey-layout"><div data-reveal>{eyebrow('FROM CONCEPT TO HANDOVER','08')}<h2>One vision.<br><em>A coordinated journey.</em></h2><p>Design, materials and next steps can be considered as one connected plan. Execution, quality checks and handover are included only when confirmed in the written project scope.</p><a class="text-link" href="/process/">Understand the process <span aria-hidden="true">↗</span></a></div><div class="turnkey-flow" data-reveal><ol><li>Concept</li><li>Design</li><li>Materials</li><li>Execution</li><li>Quality check</li><li>Handover</li></ol><p>Potential stages — final responsibilities depend on the signed agreement.</p></div></div></section>
+<section class="materials-section"><div class="materials-image" data-reveal><img src="{ASSETS}materials-study.jpg" alt="Tactile interior material samples in ivory, stone, timber and terracotta" loading="lazy"></div><div class="materials-copy" data-reveal>{eyebrow('A PALETTE WITH PURPOSE','09')}<h2>Materials that feel<br><em>like home.</em></h2><p>Natural grain, quiet stone, tactile textiles and one carefully chosen accent can give a room depth without adding visual noise.</p><ul class="materials-list"><li>Wood</li><li>Marble &amp; stone</li><li>Veneer</li><li>Laminate</li><li>Fabric</li><li>Glass &amp; metal</li><li>Lighting</li></ul><a class="text-link" href="/journal/materials-for-south-indian-homes/">Read our material notes <span aria-hidden="true">↗</span></a></div></section>
+<section class="testimonial-section section-pad"><div class="wrap testimonial-wrap"><div class="testimonial-heading" data-reveal>{eyebrow('CLIENT STORIES','10')}<h2>Good homes are<br><em>personal.</em></h2><p>Verified client words will appear here after the studio approves them.</p><div class="slider-controls"><button type="button" data-slide="prev" aria-label="Previous client story">←</button><button type="button" data-slide="next" aria-label="Next client story">→</button><span data-slide-count>01 / 03</span></div></div><div class="testimonial-stage" aria-live="polite"><article class="testimonial is-active" data-testimonial><span class="quote-mark" aria-hidden="true">“</span><blockquote>Approved client feedback will be added here when SPM supplies a verified testimonial.</blockquote><div class="reviewer"><span class="review-avatar" aria-hidden="true">SPM</span><div><strong>Client story pending</strong><span>Replace with an approved name and context</span></div></div></article><article class="testimonial" data-testimonial hidden><span class="quote-mark" aria-hidden="true">“</span><blockquote>A second verified client story can be featured here after review and permission.</blockquote><div class="reviewer"><span class="review-avatar" aria-hidden="true">SPM</span><div><strong>Client story pending</strong><span>No review, rating or identity is invented</span></div></div></article><article class="testimonial" data-testimonial hidden><span class="quote-mark" aria-hidden="true">“</span><blockquote>Use this space for real feedback shared with the client’s permission.</blockquote><div class="reviewer"><span class="review-avatar" aria-hidden="true">SPM</span><div><strong>Client story pending</strong><span>Verified testimonial placeholder</span></div></div></article></div></div></section>
+<section class="journal-section section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('NOTES ON LIVING WELL','11')}<h2>From the design<br><em>journal.</em></h2></div><a class="text-link" href="/journal/">Read every article <span aria-hidden="true">↗</span></a></div><div class="journal-grid">{''.join(article_card(item, i) for i, item in enumerate(articles))}</div></div></section>
 {cta_band('YOUR HOME, NEXT','Ready to make space<br>for <em>what matters?</em>','Tell us what you are imagining. We will begin with a conversation about the home and the way you want to live.')}
 '''
     return page("Interior Designers in Bangalore | SPM Interiors Design", "SPM Interiors Design creates thoughtful home interiors in Bangalore and South India. Explore home design services, original concept studies and a considered design process.", content, "Home", True, "interior designers in Bangalore, home interiors Bangalore, interior design South India, home interior design, modular kitchen design, bedroom interiors")
@@ -302,7 +345,7 @@ def service_detail(item: dict) -> str:
             f'<article id="{escape(chapter["id"], quote=True)}" data-reveal><span class="service-chapter-index">0{i + 1} / SPM</span><h3>{escape(chapter["title"])}</h3><p>{escape(chapter["copy"])}</p></article>'
             for i, chapter in enumerate(chapters)
         )
-        chapters_html = f'<section class="service-chapters section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow('SPACES, NEEDS & DETAIL','02')}<h2>Design begins<br><em>with how it works.</em></h2></div><p>Each space has its own rhythms, practical needs and moments of welcome. The brief shapes the response.</p></div><div class="service-chapter-grid">{chapter_cards}</div></div></section>'
+        chapters_html = f'<section class="service-chapters section-pad"><div class="wrap"><div class="section-heading" data-reveal><div>{eyebrow("SPACES, NEEDS & DETAIL","02")}<h2>Design begins<br><em>with how it works.</em></h2></div><p>Each space has its own rhythms, practical needs and moments of welcome. The brief shapes the response.</p></div><div class="service-chapter-grid">{chapter_cards}</div></div></section>'
     related = [x for x in CONTENT["services"] if x["slug"] != item["slug"] and x.get("audience", "residential") == item.get("audience", "residential")][:3]
     related_html = "".join(f'<a href="/services/{escape(x["slug"])}/"><span>{escape(x["title"])}</span><span aria-hidden="true">↗</span></a>' for x in related)
     audience = item.get("audience", "residential").upper()
