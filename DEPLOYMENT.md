@@ -2,31 +2,35 @@
 
 ## Build and output
 
-The application is provider-neutral static HTML. Set the public origin in `.env` or the hosting build environment, then run:
+The application is a React site that is prerendered to provider-neutral static HTML. Set the public origin in `.env` or the hosting build environment, then run:
 
 ```bash
 test -f .env || cp .env.example .env
 # Set confirmed values in .env or in the hosting build environment; keep secrets out of the repository.
-PUBLIC_SITE_URL=https://spminteriorsdesign.com python3 prepare_deploy.py
+npm install
+npm run build
+python3 validate_site.py   # optional production checks
 ```
 
-The production artifact is `dist/`. The script normalizes the original generated home, commercial, office-furniture and compact-space photographs, splits original before/after room studies, renders all pages from `content/site.json`, then writes canonical URLs, Open Graph/Twitter image metadata, homepage Organization JSON-LD, `sitemap.xml`, `robots.txt` and `404.html`. All site navigation and asset paths are root-relative. The only domain-derived URLs are generated from `PUBLIC_SITE_URL` at build time.
+The production artifact is `dist/`. The build copies the optimized WebP/SVG/MP4 files from `assets/` and renders every route from `content/site.json` to its own HTML file. It writes canonical URLs, Open Graph/Twitter image metadata, homepage Organization JSON-LD, `sitemap.xml`, `robots.txt` and `404.html`. Hashed JavaScript and CSS bundles go to `dist/static/`. All site navigation and asset paths are root-relative. The only domain-derived URLs are generated from `PUBLIC_SITE_URL` at build time.
+
+If you replace generated photography, run `python3 prepare_assets.py` first. It needs Pillow and regenerates the WebP derivatives in `assets/`.
 
 The homepage also serves the supplied `assets/interiorsvideo.mp4` unchanged and generates an optimized WebP poster for it. The native player is inline, controlled by the visitor, and does not autoplay; the page labels the footage as sample media rather than verified completed SPM work.
 
 ## Vercel project settings
 
-- Framework preset: **Other** (static output).
+- Framework preset: **Other** (static output). `vercel.json` sets the build command and output.
+- Build command: **`npm run build`** (Node 18 or newer).
 - Output directory: **`dist`**.
-- Build command: leave empty when deploying the prebuilt `dist/`, or run `PUBLIC_SITE_URL=https://spminteriorsdesign.com python3 prepare_deploy.py` in a connected build environment.
-- Keep the custom `vercel.json` rules isolated from application code. It applies a permanent, exact-host `www.spminteriorsdesign.com` → `spminteriorsdesign.com` redirect and security/cache headers; preview hostnames are not redirected.
-- Configure `PUBLIC_SITE_URL=https://spminteriorsdesign.com` in the Vercel project's build environment before each production build.
+- Keep the custom `vercel.json` rules isolated from application code. It applies a permanent, exact-host `www.spminteriordesigns.in` → `spminteriordesigns.in` redirect and security/cache headers; preview hostnames are not redirected.
+- Configure `PUBLIC_SITE_URL=https://spminteriordesigns.in` in the Vercel project's build environment before each production build.
 
 No Vercel account connection or deployment has been made from this workspace. Connect/import the project in the owner's Vercel account, review a preview deployment, and confirm the exact release before making it public.
 
 ## Custom domain, HTTPS and DNS
 
-The requested canonical host is the apex `spminteriorsdesign.com`. Add both the apex and `www.spminteriorsdesign.com` to the Vercel project only when the owner confirms the domain is available and under their control. Set apex as the primary domain; the repository redirect then sends `www` to non-`www`.
+The requested canonical host is the apex `spminteriordesigns.in`. Add both the apex and `www.spminteriordesigns.in` to the Vercel project only when the owner confirms the domain is available and under their control. Set apex as the primary domain; the repository redirect then sends `www` to non-`www`.
 
 Vercel shows project-specific DNS records under the project's Domains settings. Use those exact values at the registrar. Do not substitute generic A/CNAME records, change nameservers, or alter existing email MX/TXT records without the owner's direction. Vercel may require TXT ownership verification if the domain is associated with another account. **No domain is purchased and no DNS is changed by this build.**
 

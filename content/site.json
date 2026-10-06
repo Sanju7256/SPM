@@ -1,0 +1,597 @@
+{
+  "services": [
+    {
+      "slug": "complete-home-interiors",
+      "title": "Complete Home Interiors",
+      "category": "home",
+      "short": "One thoughtful language, carried through the whole home.",
+      "intro": "A considered home begins with the way you live. Layout, materials, lighting and storage come together around daily routines, personal objects and the character of the architecture.",
+      "image": "full-home-after.jpg",
+      "alt": "Warm, coordinated open-plan home interior concept with natural timber and ivory finishes",
+      "includes": [
+        "Discovery and lifestyle brief",
+        "Space planning and circulation",
+        "Room-by-room concept development",
+        "Palette and material direction",
+        "Lighting and storage planning",
+        "Drawings and visualisations as agreed"
+      ],
+      "faqs": [
+        [
+          "Can we begin before the home is ready?",
+          "An initial discussion can begin with floor plans and references. Final decisions depend on a measured site review."
+        ],
+        [
+          "Can the design cover only selected rooms?",
+          "Yes. The scope can be shaped around the rooms and decisions that matter most to your household."
+        ]
+      ]
+    },
+    {
+      "slug": "modular-kitchens",
+      "title": "Modular Kitchens",
+      "category": "kitchen",
+      "short": "A clear, comfortable flow for everyday cooking.",
+      "intro": "Kitchen planning starts with your cooking habits, storage needs and the shape of the room. Work zones, light and finish choices are considered together so the kitchen feels natural to use.",
+      "image": "kitchen-after.jpg",
+      "alt": "Warm contemporary kitchen concept with ivory cabinetry, teak detail and pale stone worktops",
+      "includes": [
+        "Workflow and work-zone planning",
+        "Cabinet and internal storage layouts",
+        "Countertop and backsplash direction",
+        "Appliance and lighting coordination",
+        "Finish and hardware selections",
+        "Installation drawings as agreed"
+      ],
+      "faqs": [
+        [
+          "Can you plan a small apartment kitchen?",
+          "Yes. A measured plan helps identify useful corners, vertical storage and clear circulation."
+        ],
+        [
+          "Are appliances included?",
+          "Appliance supply depends on the final brief and written scope; no product or price is implied by this concept site."
+        ]
+      ]
+    },
+    {
+      "slug": "living-rooms",
+      "title": "Living Rooms",
+      "category": "living",
+      "short": "A generous setting for gathering, slowing down and connecting.",
+      "intro": "Furniture layout, conversation, quiet evenings, guests and changing routines all shape a living room. The design brings those needs together with light, texture and practical storage.",
+      "image": "living-after.jpg",
+      "alt": "Contemporary living room concept with relaxed seating, warm timber and soft daylight",
+      "includes": [
+        "Furniture layout and clear circulation",
+        "Sofa, table and custom-piece direction",
+        "Layered ambient and task lighting",
+        "Media and concealed-storage planning",
+        "Textile and artwork palette",
+        "Open-plan zoning where needed"
+      ],
+      "faqs": [
+        [
+          "Can existing furniture be kept?",
+          "Existing pieces can be considered as part of a new layout and palette."
+        ],
+        [
+          "How can open-plan rooms feel defined?",
+          "Furniture groupings, rugs, lighting and aligned materials can create softer zones without closing the room in."
+        ]
+      ]
+    },
+    {
+      "slug": "bedrooms",
+      "title": "Bedrooms",
+      "category": "bedroom",
+      "short": "A quieter room for rest, routine and renewal.",
+      "intro": "A restful bedroom depends on more than a bed. Calm colour, layered light, useful storage and tactile materials are planned around the people who use the room.",
+      "image": "bedroom-after.jpg",
+      "alt": "Calm bedroom concept with linen bedding, warm timber storage and soft reading light",
+      "includes": [
+        "Bedside and furniture layout",
+        "Wardrobe and dressing storage",
+        "Ambient and reading-light planning",
+        "Wall finish and material direction",
+        "Window treatment and textile palette",
+        "Finish schedule and visualisation as agreed"
+      ],
+      "faqs": [
+        [
+          "Can the design improve a compact bedroom?",
+          "A measured layout can make better use of clearances, vertical storage and daylight."
+        ],
+        [
+          "Can you help plan bedroom lighting?",
+          "Yes. Ambient light, reading light and task light can be considered together."
+        ]
+      ]
+    },
+    {
+      "slug": "dining-areas",
+      "title": "Dining Areas",
+      "category": "dining",
+      "short": "A welcoming pause between the kitchen and the rest of home.",
+      "intro": "Dining spaces support daily meals, long conversations and gatherings. We consider table proportions, movement, light and storage in relation to the adjoining rooms.",
+      "image": "service-dining.jpg",
+      "alt": "Dining corner within a warm open-plan South Indian home concept",
+      "includes": [
+        "Table and seating proportions",
+        "Circulation around the dining setting",
+        "Pendant and ambient-light direction",
+        "Crockery and serving storage",
+        "Material continuity with nearby spaces",
+        "Furniture and finish schedule as agreed"
+      ],
+      "faqs": [
+        [
+          "Can a dining area fit into a living room?",
+          "A carefully placed table, lighting cue and storage detail can help make a shared room feel intentional."
+        ],
+        [
+          "Can the dining setting work for larger gatherings?",
+          "The brief can account for everyday use and the occasions you would like the room to support."
+        ]
+      ]
+    },
+    {
+      "slug": "wardrobes-storage",
+      "title": "Wardrobes & Storage",
+      "category": "storage",
+      "short": "Storage planned around what you own and how you reach for it.",
+      "intro": "Useful storage begins with a clear understanding of belongings, room proportions and everyday habits. The goal is a calm interior with details that make routines easier.",
+      "image": "service-wardrobe.jpg",
+      "alt": "Teak storage and clean-lined joinery within a contemporary home concept",
+      "includes": [
+        "Measured internal storage brief",
+        "Hanging, shelf and drawer zones",
+        "Door and finish direction",
+        "Hardware and mirror choices",
+        "Lighting concepts where useful",
+        "Joinery details as agreed"
+      ],
+      "faqs": [
+        [
+          "Can the internal layout be customised?",
+          "Storage zones can be tailored to the items and routines described in the brief."
+        ],
+        [
+          "Can you work around beams or alcoves?",
+          "A site measure helps resolve corners, beams and non-standard dimensions."
+        ]
+      ]
+    },
+    {
+      "slug": "lighting-ceilings",
+      "title": "Lighting & Ceilings",
+      "category": "lighting",
+      "short": "Useful light, placed with intention from morning to evening.",
+      "intro": "Lighting changes how a space works and feels. A room-by-room approach balances ambient, task and accent light with ceiling forms and the architecture already in place.",
+      "image": "service-lighting.jpg",
+      "alt": "Layered lighting concept in a warm contemporary living room",
+      "includes": [
+        "Ambient, task and accent-light layers",
+        "Fixture and colour-temperature direction",
+        "Switch and circuit coordination",
+        "Ceiling concepts only where useful",
+        "Coordination with furniture and architecture",
+        "Lighting schedule as agreed"
+      ],
+      "faqs": [
+        [
+          "Does every room need a false ceiling?",
+          "No. A ceiling intervention should solve a lighting, service or spatial need."
+        ],
+        [
+          "Can existing fixtures be reused?",
+          "Existing pieces can be reviewed as part of a new lighting plan."
+        ]
+      ]
+    },
+    {
+      "slug": "bathrooms",
+      "title": "Bathroom Interiors",
+      "category": "bathroom",
+      "short": "Thoughtful utility, refined through material and light.",
+      "intro": "A bathroom should feel clear and comfortable to use. Layout, storage, lighting and moisture-suitable surface choices are coordinated with site conditions and product guidance.",
+      "image": "service-bathroom.jpg",
+      "alt": "Stone, tile and warm metal bathroom material palette study",
+      "includes": [
+        "Fixture and vanity layout",
+        "Tile, stone and grout direction",
+        "Mirror and task-light planning",
+        "Niche and storage design",
+        "Hardware and finish coordination",
+        "Wet-area detailing discussion"
+      ],
+      "faqs": [
+        [
+          "Can an existing bathroom be refreshed?",
+          "A design discussion can identify which elements might be retained and where a focused update may help."
+        ],
+        [
+          "How are finishes selected?",
+          "Material choices should be checked against site conditions, maintenance needs and manufacturer guidance."
+        ]
+      ]
+    },
+    {
+      "slug": "custom-furniture",
+      "title": "Custom Furniture",
+      "category": "furniture",
+      "short": "Distinctive pieces made to belong in your space.",
+      "intro": "When a standard piece does not fit the room or the routine, custom furniture can solve a spatial challenge and add a personal note. Proportion and use lead the design.",
+      "image": "materials-study.jpg",
+      "alt": "Natural timber, stone and woven material samples arranged for a furniture concept",
+      "includes": [
+        "A measured brief and proportion study",
+        "Concept sketches and visualisation",
+        "Material and finish direction",
+        "Storage and usability details",
+        "Fabrication drawing coordination",
+        "Placement and care guidance"
+      ],
+      "faqs": [
+        [
+          "Can a piece be designed for an unusual space?",
+          "A measured brief can address alcoves, angled walls and non-standard dimensions."
+        ],
+        [
+          "How are custom items priced?",
+          "Pricing depends on the final dimensions, materials and fabrication scope and should be confirmed in a written proposal."
+        ]
+      ]
+    },
+    {
+      "slug": "commercial-interiors",
+      "title": "Commercial Interiors",
+      "category": "commercial",
+      "audience": "commercial",
+      "short": "Commercial spaces shaped around function, identity and the people who use them.",
+      "intro": "Professional commercial spaces bring brand identity, customer experience and efficient space planning into one clear design conversation. From retail environments and hospitality settings to corporate workplaces, the scope is agreed around the space and the responsibilities confirmed in writing.",
+      "image": "service-commercial.jpg",
+      "alt": "Bangalore commercial workplace concept with reception joinery and a welcoming professional lounge",
+      "cta_label": "Start Your Commercial Project",
+      "seo_title": "Commercial Interior Designers in Bangalore | SPM Interiors Design",
+      "seo_description": "Explore commercial interior design for retail, showrooms, cafés, restaurants and corporate spaces in Bangalore. SPM plans function, brand identity and customer experience.",
+      "seo_keywords": "commercial interior designers Bangalore, retail interiors, showroom design, restaurant interiors, corporate interiors",
+      "includes": [
+        "Retail Interiors",
+        "Showrooms",
+        "Restaurants & Cafés",
+        "Corporate Spaces",
+        "Reception Areas",
+        "Commercial Space Planning",
+        "Custom Fixtures",
+        "Lighting Design",
+        "Turnkey Execution"
+      ],
+      "chapters": [
+        {
+          "id": "office-interiors",
+          "title": "Office interiors",
+          "copy": "Plan work areas, reception points and shared spaces around staff needs, visitor experience, circulation and the character of the organisation."
+        },
+        {
+          "id": "retail-showrooms",
+          "title": "Retail & showrooms",
+          "copy": "Consider how customers arrive, move, browse and engage with products, while making room for the brand story and practical operations."
+        },
+        {
+          "id": "restaurants-cafes",
+          "title": "Restaurants & cafés",
+          "copy": "Bring guest comfort, service routes, lighting and seating into a coordinated hospitality-space brief; final requirements depend on site and operator needs."
+        }
+      ],
+      "faqs": [
+        [
+          "Which commercial spaces can be discussed?",
+          "Retail, showrooms, restaurants, cafés, corporate spaces and reception areas can be explored against the actual brief."
+        ],
+        [
+          "Is turnkey execution included?",
+          "Execution is included only when it is expressly agreed in the written project scope. The design discussion does not imply construction responsibility."
+        ]
+      ]
+    },
+    {
+      "slug": "office-furniture",
+      "title": "Office Furniture",
+      "category": "commercial",
+      "audience": "commercial",
+      "short": "Functional, modern and ergonomic furniture for offices and professional workspaces.",
+      "intro": "Office furniture should support the way teams focus, meet, welcome visitors and organise work. Furniture planning considers proportions, movement, ergonomics, storage and the working culture of the space before the final specification is agreed.",
+      "image": "service-office-furniture.jpg",
+      "alt": "Modern office furniture concept with modular workstations, ergonomic chairs and integrated storage",
+      "cta_label": "Explore Office Furniture",
+      "seo_title": "Office Furniture & Workstations in Bangalore | SPM Interiors Design",
+      "seo_description": "Explore office workstations, executive desks, meeting tables and custom office furniture in Bangalore. Plan ergonomic, functional workplace furniture with SPM Interiors Design.",
+      "seo_keywords": "office furniture Bangalore, office workstations, modular office furniture, custom office furniture, ergonomic workspace furniture",
+      "includes": [
+        "Office Workstations",
+        "Modular Workstations",
+        "Executive Desks",
+        "Manager Tables",
+        "Reception Desks",
+        "Conference Tables",
+        "Office Chairs",
+        "Storage Units",
+        "Filing Cabinets",
+        "Pedestal Units",
+        "Meeting Room Furniture",
+        "Custom Office Furniture"
+      ],
+      "chapters": [
+        {
+          "id": "workstations",
+          "title": "Workstations & focus",
+          "copy": "Explore workstation layouts, modular arrangements and ergonomic choices that support clear circulation and the daily pattern of work."
+        },
+        {
+          "id": "meeting-furniture",
+          "title": "Leadership & meetings",
+          "copy": "Coordinate executive desks, manager tables, conference tables and meeting-room furniture with the proportions and use of each space."
+        },
+        {
+          "id": "office-storage",
+          "title": "Welcome & organisation",
+          "copy": "Consider reception desks, office chairs, storage units, filing cabinets and pedestal units as parts of an organised workplace."
+        }
+      ],
+      "faqs": [
+        [
+          "Can furniture be planned for an existing office?",
+          "Yes. Existing layouts, clearances and furniture can be reviewed before suggesting a new furniture direction."
+        ],
+        [
+          "Does the service include furniture supply or installation?",
+          "Supply, fabrication, installation and warranty responsibilities must be stated in the final written scope; this page describes design planning only."
+        ]
+      ]
+    },
+    {
+      "slug": "space-saving-interiors",
+      "title": "Space-Saving Interiors",
+      "category": "space-planning",
+      "audience": "residential",
+      "short": "Intelligent interiors for homes and workspaces where every square foot matters.",
+      "intro": "Space-saving design begins with a measured understanding of movement, storage and everyday use. Compact rooms, built-ins and furniture with more than one role can help make a small home or workspace feel more considered without promising extra floor area.",
+      "image": "service-space-saving.jpg",
+      "alt": "Compact Bangalore apartment concept with a fold-away dining surface and floor-to-ceiling storage",
+      "cta_label": "Maximize Your Space",
+      "seo_title": "Space-Saving Interiors in Bangalore | SPM Interiors Design",
+      "seo_description": "Explore compact home interiors, smart storage, multi-functional furniture and optimized space planning in Bangalore with SPM Interiors Design.",
+      "seo_keywords": "space saving interiors Bangalore, small home interior design, space saving furniture, compact home interiors, smart storage solutions",
+      "includes": [
+        "Compact Home Interiors",
+        "Smart Storage Solutions",
+        "Multi-Functional Furniture",
+        "Foldable Furniture",
+        "Convertible Furniture",
+        "Space-Saving Wardrobes",
+        "Compact Modular Kitchens",
+        "Vertical Storage",
+        "Custom Built-In Furniture",
+        "Optimized Space Planning"
+      ],
+      "chapters": [
+        {
+          "id": "compact-planning",
+          "title": "Compact homes, clear plans",
+          "copy": "Review dimensions, circulation and daily routines to prioritise the decisions that make a compact home easier to use."
+        },
+        {
+          "id": "multifunctional-furniture",
+          "title": "Furniture with more than one role",
+          "copy": "Explore foldable, convertible and multi-functional furniture ideas where flexibility is useful to the people using the room."
+        },
+        {
+          "id": "smart-storage",
+          "title": "Storage from floor to ceiling",
+          "copy": "Consider vertical storage, built-ins, wardrobes and compact kitchen layouts in relation to access, maintenance and room proportions."
+        }
+      ],
+      "faqs": [
+        [
+          "Can space-saving ideas work in a rental home?",
+          "The brief can identify movable or lower-impact ideas, subject to lease terms and the actual room conditions."
+        ],
+        [
+          "Will a space-saving plan increase the measured area?",
+          "No. Planning can improve how available space is used, but it does not increase the property's measured floor area."
+        ]
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "slug": "the-quiet-courtyard",
+      "name": "The Quiet Courtyard",
+      "category": "home",
+      "typology": "Whole-home concept",
+      "location": "South Indian home study",
+      "style": "Warm contemporary",
+      "image": "full-home-after.jpg",
+      "before_image": "full-home-before.jpg",
+      "alt": "Warm contemporary open-plan home interior concept with teak detailing",
+      "description": "An illustrative whole-home study exploring a calm relationship between entry, living and dining. Natural timber, tactile surfaces and clear movement make the rooms feel connected without losing their individual character.",
+      "materials": [
+        "Natural timber tone",
+        "Warm ivory wall finish",
+        "Soft woven texture",
+        "Pale stone accents",
+        "Muted terracotta detail"
+      ],
+      "rooms": [
+        "Entry",
+        "Open-plan living",
+        "Dining corner",
+        "Kitchen connection",
+        "Private rooms"
+      ]
+    },
+    {
+      "slug": "the-sunday-kitchen",
+      "name": "The Sunday Kitchen",
+      "category": "kitchen",
+      "typology": "Kitchen concept",
+      "location": "Apartment kitchen study",
+      "style": "Quiet utility",
+      "image": "kitchen-after.jpg",
+      "before_image": "kitchen-before.jpg",
+      "alt": "Functional warm ivory kitchen concept with teak detailing and pale stone",
+      "description": "A kitchen concept organised around clear work zones, useful storage and comfortable daylight. The palette is intentionally restrained so the materials and everyday routines can lead.",
+      "materials": [
+        "Ivory cabinetry concept",
+        "Teak accents",
+        "Pale stone worktop",
+        "Brushed metal detail",
+        "Warm task lighting"
+      ],
+      "rooms": [
+        "Preparation zone",
+        "Cooking zone",
+        "Cleaning zone",
+        "Tall storage",
+        "Window-side counter"
+      ]
+    },
+    {
+      "slug": "a-room-to-exhale",
+      "name": "A Room to Exhale",
+      "category": "bedroom",
+      "typology": "Bedroom concept",
+      "location": "Bedroom design study",
+      "style": "Soft minimal",
+      "image": "bedroom-after.jpg",
+      "before_image": "bedroom-before.jpg",
+      "alt": "Serene bedroom concept with warm timber, soft linen and layered light",
+      "description": "A restful bedroom study that uses quiet colour, tactile linen and warm timber to establish a gentle pace. The concept pairs bedside reading light with storage that sits naturally within the room.",
+      "materials": [
+        "Linen-like textile palette",
+        "Warm timber tone",
+        "Stone-gray accent",
+        "Soft wall finish",
+        "Muted terracotta note"
+      ],
+      "rooms": [
+        "Sleeping area",
+        "Bedside reading",
+        "Wardrobe wall",
+        "Dressing corner"
+      ]
+    },
+    {
+      "slug": "living-in-layers",
+      "name": "Living in Layers",
+      "category": "living",
+      "typology": "Living-room concept",
+      "location": "Living-room design study",
+      "style": "Material-led modern",
+      "image": "living-after.jpg",
+      "before_image": "living-before.jpg",
+      "alt": "Material-led living room concept with natural daylight and relaxed seating",
+      "description": "A living-room study shaped by how people gather, read and rest. Different layers of light, a comfortable furniture arrangement and one terracotta accent bring character without visual noise.",
+      "materials": [
+        "Textured ivory surface",
+        "Natural timber",
+        "Soft woven rug",
+        "Stone-gray upholstery",
+        "Terracotta accent"
+      ],
+      "rooms": [
+        "Conversation area",
+        "Reading corner",
+        "Media storage",
+        "Window-side seat"
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "slug": "planning-a-warm-minimal-home",
+      "title": "Planning a warm-minimal home that still feels personal",
+      "category": "Planning",
+      "date": "2026-10-01",
+      "read_time": "5 min read",
+      "image": "full-home-after.jpg",
+      "alt": "Warm contemporary South Indian home concept with light, timber and textured surfaces",
+      "excerpt": "A restrained palette can make room for personality. Start with daily habits, keep the material story tactile, and choose where contrast earns its place.",
+      "sections": [
+        [
+          "Begin with the way the home is used",
+          "List the routines that matter: how the household cooks, gathers, works, rests and welcomes visitors. A plan becomes more useful when it solves those moments before it selects finishes."
+        ],
+        [
+          "Choose a small, flexible palette",
+          "Warm ivory, wood tones and stone-gray can create a calm base. Introduce a stronger accent in a few considered places so the scheme feels composed rather than repetitive."
+        ],
+        [
+          "Use texture to add depth",
+          "A room can feel layered through woven surfaces, natural grain, matte finishes and varied textiles, without filling every wall or shelf."
+        ],
+        [
+          "Leave space for change",
+          "Storage, lighting and furniture clearances deserve as much attention as the first impression. Final material and construction decisions should be checked against the actual site and supplier guidance."
+        ]
+      ]
+    },
+    {
+      "slug": "materials-for-south-indian-homes",
+      "title": "A thoughtful material palette for South Indian homes",
+      "category": "Materials",
+      "date": "2026-10-01",
+      "read_time": "6 min read",
+      "image": "materials-study.jpg",
+      "alt": "Material palette of natural timber, stone, woven texture and terracotta for an interior concept",
+      "excerpt": "Material choices are both visual and practical. Consider maintenance, ventilation, natural light and product specifications before settling on a finish.",
+      "sections": [
+        [
+          "Start with the conditions of the room",
+          "Sun exposure, ventilation, cooking activity and cleaning habits influence how finishes perform. A beautiful sample is only a starting point; check the product guidance and site conditions."
+        ],
+        [
+          "Balance hard and soft surfaces",
+          "Stone, tile and joinery can be softened with linen-like textiles, woven textures and carefully placed rugs. The balance helps a room feel welcoming and legible."
+        ],
+        [
+          "Use timber tones with intention",
+          "Repeat a limited number of wood tones across joinery and furniture. Keeping undertones related can help connected rooms feel cohesive."
+        ],
+        [
+          "Specify for care, not just appearance",
+          "Ask about cleaning, maintenance, warranties and installation requirements. No material is universally right; the final selection should match the household and the manufacturer's specifications."
+        ]
+      ]
+    },
+    {
+      "slug": "layered-lighting-for-everyday-living",
+      "title": "Layered lighting for everyday living",
+      "category": "Design notes",
+      "date": "2026-10-01",
+      "read_time": "4 min read",
+      "image": "living-after.jpg",
+      "alt": "Soft ambient and task lighting in a warm living-room concept",
+      "excerpt": "A comfortable lighting plan combines useful general light with focused task lighting and a few carefully placed accents.",
+      "sections": [
+        [
+          "Give each layer a purpose",
+          "Ambient light supports general movement, task light helps with specific activities, and accent light can draw attention to a material or artwork. Not every room needs every layer in equal measure."
+        ],
+        [
+          "Plan around furniture and routines",
+          "Reading, cooking and dressing benefit from light placed for the activity. Consider furniture layouts before selecting the location of fixtures and controls."
+        ],
+        [
+          "Think about natural light",
+          "Observe how daylight enters at different times of day. Window treatments, reflective surfaces and room orientation can change the balance between natural and electric light."
+        ],
+        [
+          "Coordinate with a qualified installer",
+          "Fixture selection, wiring, circuits and installation must be checked against the building and applicable electrical requirements by qualified professionals."
+        ]
+      ]
+    }
+  ]
+}
